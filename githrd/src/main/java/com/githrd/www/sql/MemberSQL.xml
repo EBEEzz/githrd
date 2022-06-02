@@ -13,4 +13,32 @@
 			AND id = #{id}
 			AND pw = #{pw}
 	</select>
+	
+	<select id="idCnt" resultType="int" parameterType="string">
+		SELECT
+			COUNT(*)
+		FROM
+			member
+		WHERE
+			id = #{id}
+	</select>
+	
+	<select id="avtList" resultType="mVO">
+		SELECT
+		    ano, savename, gen
+		FROM
+		    avatar
+		WHERE
+		    gen IN ('M', 'F')
+		    AND isshow = 'Y'
+	</select>
+	
+	<insert id="addMember" parameterType="mVO">
+		INSERT INTO
+		    member(mno, name, id, pw, mail, tel, gen, avt)
+		VALUES(
+		    (SELECT NVL(MAX(mno) + 1, 1001) FROM member),
+		    #{name}, #{id}, #{pw}, #{mail}, #{tel}, #{gen}, #{ano}
+		)
+	</insert>
 </mapper>

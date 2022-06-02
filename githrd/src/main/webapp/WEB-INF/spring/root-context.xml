@@ -29,5 +29,4 @@
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 	
-	<bean id="mDao" class="com.githrd.www.dao.MemberDao" />
 </beans>

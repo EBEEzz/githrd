@@ -1,0 +1,70 @@
+### GITHRD Project 요청 설계 ###
+
+
+# main 페이지 보기 요청
+요청내용	:	/www/ , /www/main.blp
+파라미터	:	무
+컨트롤러	:	com.githrd.www.controller.MainController
+처리함수	:	getMain()
+뷰			:	/WEB-INF/views/main.jsp
+
+--------------------------------------------------------------------------------
+### 회원관련 요청 설계
+# 로그인 폼 보기 요청
+요청내용	:	/www/member/login.blp
+파라미터	:	무
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	loginForm()
+뷰			:	/WEB-INF/views/member/login.jsp
+--------------------------------------------------------------------------------
+# 로그인 처리 요청
+요청내용	:	/www/member/loginProc.blp
+파라미터	:	id, pw
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	loginProc()
+뷰			:	redirect ]
+					성공 : /www/
+					실패 : /www/member/login.blp
+--------------------------------------------------------------------------------
+# 로그아웃 처리 요청
+요청내용	:	/www/member/logout.blp
+파라미터	:	무
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	logout()
+뷰			:	redirect ]	/www/
+--------------------------------------------------------------------------------
+# 회원가입 폼 보기 요청
+요청내용	:	/www/member/join.blp
+파라미터	:	무
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	joinForm()
+뷰			:	/WEB-INF/views/member/join.jsp
+--------------------------------------------------------------------------------
+# 아이디 체크 요청
+요청내용	:	/www/member/idCheck.blp
+파라미터	:	id
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	idCheck()
+뷰			:	json
+--------------------------------------------------------------------------------
+# 회원가입 처리 요청
+요청내용	:	/www/member/joinProc.blp
+파라미터	:	name, id, pw, mail, tel, ano, gen
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	joinProc()
+뷰			:	redirect ]
+					성공 : /www/
+					실패 : /www/member/join.blp
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
