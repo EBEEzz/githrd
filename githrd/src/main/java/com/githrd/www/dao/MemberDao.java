@@ -12,12 +12,12 @@ public class MemberDao {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 	
-	//로그인 처리
+	// 로그인 처리
 	public int getLogin(MemberVO mVO) {
 		return sqlSession.selectOne("mSQL.login", mVO);
 	}
 	
-	//아이디 카운트 조회
+	// 아이디 카운트 조회
 	public int getIdCnt(String id) {
 		return sqlSession.selectOne("mSQL.idCnt", id);
 	}
@@ -27,29 +27,33 @@ public class MemberDao {
 		return sqlSession.selectList("mSQL.avtList");
 	}
 	
+	public List<MemberVO> genAvtList(String id){
+		return sqlSession.selectList("mSQL.genAvtList", id);
+	}
+	
 	// 회원정보 데이터베이스 추가작업 전담 처리함수
 	public int addMember(MemberVO mVO) {
 		return sqlSession.insert("mSQL.addMember", mVO);
 	}
 	
-	//아이디로 회원정보 조회 전담 처리함수
+	// 아이디로 회원정보 조회 전담 처리 함수
 	public MemberVO getIdInfo(String id) {
 		return sqlSession.selectOne("mSQL.getIdInfo", id);
 	}
 	
-	public List<MemberVO> getMemberList() {
-		return sqlSession.selectList("mSQL.getMemberList");
+	// 회원번호로 회원정보 조회 전담 처리 함수
+	public MemberVO getMnoInfo(int mno) {
+		return sqlSession.selectOne("mSQL.getMnoInfo", mno);
 	}
 	
+	// 회원 리스트조회 전담 처리함수
+	public List<MemberVO> membList(){
+		return sqlSession.selectList("mSQL.memberList");
+	}
+	
+	// 회원 탈퇴처리 데이터베이스 작업 전담 처리함수
 	public int delMember(String id) {
 		return sqlSession.update("mSQL.delMember", id);
 	}
 	
-	public MemberVO myInfoEdit(String id) {
-		return sqlSession.selectOne("mSQL.getIdInfo", id);
-	}
-	
-	public List<MemberVO> genAvtList(String id){
-		return sqlSession.selectList("mSQL.genAvtList", id);
-	}
 }

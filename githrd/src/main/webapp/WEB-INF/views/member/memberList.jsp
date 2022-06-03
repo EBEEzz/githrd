@@ -22,7 +22,7 @@
 		이 폼태그가 전송될때 데이터는
 		이 태그가 감싸고 있는  input 태그만 전송이 된다.
 	 --%>
-		<input type="hidden" name="id" id="id">
+		<input type="hidden" name="mno" id="mno">
 	</form>
 	
 	<div class="w3-content mx650 w3-center">
@@ -34,7 +34,7 @@
 	아래 클래스에 입력한 lbtn은 
 	버튼태그에 이벤트 등록용 클래스로 사용할 예정이다.
  --%>
-			<div class="box w150 w3-button w3-blue ml10 mb5 lbtn" id="${data.id}">${data.name}</div>
+			<div class="box w150 w3-button w3-blue ml10 mb5 lbtn" id="${data.mno}">${data.name}</div>
 </c:forEach>		
 		</div>
 		<div class="w3-col w3-margin-top">

@@ -33,8 +33,25 @@
 		    AND isshow = 'Y'
 	</select>
 	
+	<select id="genAvtList" resultType="mVO" parameterType="string">
+		SELECT
+		    ano, savename
+		FROM
+		    avatar
+		WHERE
+		    gen = (
+		    	SELECT
+		    		gen
+		    	FROM
+		    		member
+		    	WHERE
+		    		id = #{id}
+		    )
+		    AND isshow = 'Y'
+	</select>
+	
 	<!-- 회원 정보조회 질의명령 -->
-	<select id="getIdInfo" resultType="mVO" parameterType="String">
+	<select id="getIdInfo" resultType="mVO" parameterType="string">
 		SELECT
 			mno, name, id, mail, tel, m.gen, joindate jdate, ano, savename
 		FROM
@@ -44,33 +61,17 @@
 			AND id = #{id}
 	</select>
 	
-	<select id="getMemberList" resultType="mVO">
+	<select id="getMnoInfo" resultType="mVO" parameterType="int">
 		SELECT
-			name, id
+			mno, name, id, mail, tel, m.gen, joindate jdate, ano, savename
 		FROM
-			member
+			member m, avatar a
 		WHERE
-			isshow = 'Y'
+			avt = ano
+			AND mno = #{mno}
 	</select>
 	
-	<select id="genAvtList" resultType="mVO" parameterType="String">
-		SELECT
-		    ano, savename
-		FROM
-		    avatar
-		WHERE
-		    isshow = 'Y'
-		    AND gen = (
-		        SELECT
-		            gen
-		        FROM
-		            member
-		        WHERE
-		            id = #{id}
-		    )
-	</select>
-	
-	<update id="delMember" parameterType="String">
+	<update id="delMember" parameterType="string">
 		UPDATE
 			member
 		SET
@@ -78,6 +79,16 @@
 		WHERE
 			id = #{id}
 	</update>
+	
+	<!-- 회원 리스트 조회 질의명령 -->
+	<select id="memberList" resultType="mVO">
+		SELECT
+			mno, name
+		FROM
+			member
+		WHERE
+			isshow = 'Y'
+	</select>
 	
 	<insert id="addMember" parameterType="mVO">
 		INSERT INTO

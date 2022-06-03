@@ -177,7 +177,7 @@ public class Member {
 	
 	@RequestMapping("/memberList.blp")
 	public ModelAndView getMember(ModelAndView mv) {
-		List<MemberVO> list = mDao.getMemberList();
+		List<MemberVO> list = mDao.membList();
 		
 		mv.addObject("LIST", list);
 		mv.setViewName("member/memberList");
@@ -186,8 +186,8 @@ public class Member {
 	}
 	
 	@RequestMapping("/memberInfo.blp")
-	public ModelAndView memberInfo(ModelAndView mv, String id) {
-		MemberVO mVO = mDao.getIdInfo(id);
+	public ModelAndView memberInfo(ModelAndView mv, int mno) {
+		MemberVO mVO = mDao.getMnoInfo(mno);
 		
 		mv.addObject("DATA", mVO);
 		
