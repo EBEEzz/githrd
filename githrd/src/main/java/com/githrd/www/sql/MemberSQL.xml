@@ -33,6 +33,52 @@
 		    AND isshow = 'Y'
 	</select>
 	
+	<!-- 회원 정보조회 질의명령 -->
+	<select id="getIdInfo" resultType="mVO" parameterType="String">
+		SELECT
+			mno, name, id, mail, tel, m.gen, joindate jdate, ano, savename
+		FROM
+			member m, avatar a
+		WHERE
+			avt = ano
+			AND id = #{id}
+	</select>
+	
+	<select id="getMemberList" resultType="mVO">
+		SELECT
+			name, id
+		FROM
+			member
+		WHERE
+			isshow = 'Y'
+	</select>
+	
+	<select id="genAvtList" resultType="mVO" parameterType="String">
+		SELECT
+		    ano, savename
+		FROM
+		    avatar
+		WHERE
+		    isshow = 'Y'
+		    AND gen = (
+		        SELECT
+		            gen
+		        FROM
+		            member
+		        WHERE
+		            id = #{id}
+		    )
+	</select>
+	
+	<update id="delMember" parameterType="String">
+		UPDATE
+			member
+		SET
+			isshow = 'N'
+		WHERE
+			id = #{id}
+	</update>
+	
 	<insert id="addMember" parameterType="mVO">
 		INSERT INTO
 		    member(mno, name, id, pw, mail, tel, gen, avt)

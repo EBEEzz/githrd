@@ -1,0 +1,451 @@
+# day02
+
+등록방법)
+	1. 서블릿 등록
+			<servlet>
+				<servlet-name>appServlet</servlet-name>
+				=> 서블릿에 부여하는 이름(개발자가 정한다.)
+				<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+				=> 사용할 클래스를 지정하는 부분
+					JSP 프로젝트에서는 우리가 만들어서 등록했다.(dispatch)
+					스프링에서는 미리 만들어진 서블릿을 사용하면 된다.
+				<init-param>
+					<param-name>contextConfigLocation</param-name>
+					<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+					=> 지정한 서블릿 클래스의 환경설정을 담당할
+						설정파일(xml파일)을 지정하는 부분
+						파일이름은 개발자가 마음대로 만들어도 되지만
+						반드시 해당 경로에 해당 파일이 존재해야 한다.
+				</init-param>
+				<load-on-startup>1</load-on-startup>
+				=> 서블릿이 행동할 우선순위 지정
+			</servlet>
+
+참고)
+	하나의 스프링에 서블릿은 여러개 만들 수 있다.
+	그리고 각각의 서블릿은 다른 요청을 처리하도록 할 수 있다.
+	
+	서블릿 이름과 환경설정 파일의 이름을 다르게 해야한다.
+	
+	서블릿 등록과 서블릿 매핑은 반드시 한쌍으로 만들어야한다.
+	
+	서블릿 매핑은 JSP 프로젝트와 동일
+	
+----------------------------------------------------------------------------------------------------------
+의존주입(DI : Dependency Injection)
+=> 의존주입이라고 번역하고 
+	어떤 클래스를 사용하는데 있어서 스스로 new 시키지않고
+	다른 곳에서 new 시킨 것을 받아서 사용하는 방법
+	
+	예) JSP 프로젝트를 예로 들자면
+			
+			회원가입 처리의 경우
+				member.JoinProc {
+					private BlpDBCP db = new BlpDBCP();
+				}
+				
+				dao.MemberDao {
+					private BlpDBCP db;
+					=> 이 클래스는 BlpDBCP 객체에 의존적이다.
+						해당 객체가 만들어지지 않으면 이 클래스 내부의 어떤 작업도 할 수 없다.
+						따라서 이 클래스는 new 될 때 반드시 BlpDBCP가 준비되어야 한다.
+						
+						JSP 프로젝트에서는 이 객체를 생성자에서 new 시켜서 준비했지만
+						스프링에서는 이미 스프링이 new 시켜서 만들어 놨으므로
+						이것을 변수에 대입만 해주면 된다.
+						이것이 의존주입이다.
+						
+					public MemberDao(BlpDBCP db) {
+						this.db = db;
+					}
+					
+					public int addMember(){}
+				}
+				
+		스프링에서는 빈(Bean) 처리라고 해서
+		xml파일에서 직접 필요한 클래스를 new 시키는 기능을 가지고 있다.
+		이때 해당 xml 파일에서 bean 처리를 하려면 반드시
+			http://www.springframework.org/schema/beans
+		스키마를 등록해야한다.
+		
+		예)
+			<bean id="page" class="com.githrd.www.util.PageUtil">
+			=>
+				PageUtil page = new PageUtil();
+				과 같은 결과가 만들어진다.
+				
+			참고)
+				빈 터리를 할 때 기본 생성자가 실행될텐데
+				이때 특정 변수의 값을 세팅할 수 있다.
+				
+				<bean id="page" class="com.githrd.www.util.PageUtil">
+					<property name="nowPage" value="1" />
+					<property name="pageRow" value="10" />
+					<property name="pageGroup" value="10" />
+				</bean>
+				
+				<bean id="page1" class="com.githrd.www.util.PageUtil">
+					<property name="nowPage" value="1" />
+					<property name="pageRow" value="3" />
+					<property name="pageGroup" value="3" />
+				</bean>
+	**********			
+	중요)
+		스프링에서 의존주입을 하려면
+		먼저 Bean처리가 되어있어야 한다.
+		
+----------------------------------------------------------------------------------------------------------
+
+자동의존주입
+=> <bean> 처리된 클래스를 필요로 하는 곳에
+	어노테이션을 이용해서 자동적으로 생성된 클래스를
+	사용하도록 하는 것.
+	
+	@Autowired
+	=> 모든 <bean>처리된 클래스를 자동으로 찾아서 주입해주는 어노테이션
+	
+	@Qualifier
+	=> 동일한 클래스가 여러번 <bean>처리된 경우에
+		특정 빈을 선택하도록 하는 어노테이션
+		
+		참고)
+			빈처리를 할 때
+			하나의 클래스를 여러번 bean처리할 수 있다.
+			이때 반드시 빈의 아이디 값은 달라야한다.
+			
+	@Resource
+	=> 자동 주입할 클래스를 지정해서 주입하도록 하는 어노테이션
+----------------------------------------------------------------------------------------------------------
+	
+	참고)
+		@Autowired	=> 스프링 전용
+		@Inject		=> 자바 어플리케이션(물론 스프링에서도...)에서 사용할 수 있다.
+	
+@Autowired
+	참고)
+		@Autowired를 사용하는 지점
+			1. 변수 생성에서 사용할 수 있다.
+			2. 생성자 함수에서 사용할 수 있다.
+			3. set() 함수에서 사용할 수 있다.
+	주의)
+		@Autowired는 선언한 바로 다음 줄에 한해서만 적용된다.
+			예)
+				<bean id="mDao" class="com.githrd.www.dao.MemberDao" />
+				<bean id="bDao" class="com.githrd.www.dao.BoardDao" />
+				
+				=> 컨트롤러에서 위의 두개의 빈을 의존주입할 경우
+					
+					@Autowired
+					MemberDao mDao;	=> 의존주입된다.
+					BoardDao bDao;	=> 의존주입안된다.
+					=>
+					@Autowired
+					MemberDao mDao;	=> 의존주입된다.
+					@Autowired
+					BoardDao bDao;	=> 의존주입된다.
+					
+			2. 생성자에서 자동 의존주입하는 경우
+				public class Test {
+					@Autowired
+					public Test(MemberDao mDao) {
+					
+					}
+				}
+				
+					<bean id="page" class="com.githrd.www.util.PageUtil">
+						<property name="nowPage" value="1" />
+						<property name="pageRow" value="10" />
+						<property name="pageGroup" value="10" />
+					</bean>
+					
+					<bean id="page1" class="com.githrd.www.util.PageUtil">
+						<property name="nowPage" value="1" />
+						<property name="pageRow" value="3" />
+						<property name="pageGroup" value="3" />
+						<qualifier value="gboard" />
+					</bean>
+					
+					=>
+					@Controller
+					@RequestMapping("/gboard")
+					public class GuestBoard {
+						@Qualifier("gboard")
+						PageUtil page;
+					}
+					
+			참고)
+				@Autowired를 사용하는 경우
+				자동으로 빈을 찾아서 자동 주입을 해주게 된다.
+				반대로 말하자면 해당 Bean을 찾지 못하면 에러가 발생할 것이다.
+				
+				이런 경우를 대비해서 만약 bean을 찾지 못하더라도
+				에러 없이 진행시킬 수 있는 방법
+					형식)
+						@Autowired(required=false)
+						
+----------------------------------------------------------------------------------------------------------
+@Resource에 의한 자동 의존주입
+=> @Autowired보다는 강력하지 않고
+	Bean처리된 것 중에서 특정한 bean을 선택해서 자동 주입하는 기능
+	
+	형식)
+		@Resource(name="Bean의 아이디값")
+		변수선언
+		
+		예)
+				<bean id="page" class="com.githrd.www.util.PageUtil">
+					<property name="nowPage" value="1" />
+					<property name="pageRow" value="10" />
+					<property name="pageGroup" value="10" />
+				</bean>
+				
+				<bean id="page1" class="com.githrd.www.util.PageUtil">
+					<property name="nowPage" value="1" />
+					<property name="pageRow" value="3" />
+					<property name="pageGroup" value="3" />
+				</bean>
+				
+				=>
+				@Controller
+				@RequestMapping("/gboard")
+				public class GuestBoard {
+					@Resource(name="page1")
+					PageUtil page;
+				}
+	
+	참고)
+		@Resource에서 원하는 빈을 찾는 순서
+			1. name에 지정한 값과 동일한 id를 가진 Bean을 찾아서 자동 의존주입한다.
+			2. id 값과 동일한 빈이 없는 경우 클래스이름을 이용해서 Bean을 찾아서 자동 의존주입한다.
+			3. 만약 같은 이름이 중복되면 에러가 발생한다.
+				(@Qualifier를 이용해서 구분 처리를 할 수는 있다.)
+				
+----------------------------------------------------------------------------------------------------------
+	
+참고)
+	명시적 의존주입과 묵시적 자동 의존주입이 같이 존재할 경우에는
+	명시적 의존주입이 우선으로 적용된다.
+	
+	XML파일
+		<bean id="mDao" class="com.githrd.www.dao.MemberDao" />
+		
+		<bean id="pirnt" class="com.githrd.www.util.GitPrint" />
+		<bean id="pirnt2" class="com.githrd.www.util.GitPrint" />
+		
+		<bean id="gitInfo" class="com.githrd.www.util.GitInfo">
+		=> 명시적으로 set 함수를 이용해서 의존주입을 시키도록 한다.
+			<property name="print" ref="print2" />
+		</bean>
+		
+		public class GitInfo {
+			@Autowired
+			private MemberDao mDao;
+			
+			@Autowired
+			private GitPrint print;	=> 아이디가 print2인 빈이 주입된다.
+			=> 명시적으로 print2를 이용해서 의존주입을 시켰기 때문에
+				print2가 의존주입된다.
+		}
+	
+----------------------------------------------------------------------------------------------------------
+
+스프링에서 데이터베이스 연동하기
+
+1. 커넥션 풀과 오라클에 필요한 라이브러리(ojdbc6.jar)를 불러와야한다.
+
+	참고)
+		Maven 방식에서는 pom.xml에 필요한 라이브러리를 등록하면
+		자동으로 해당 라이브러리를 다운로드해서 프로젝트에 적용시켜준다.
+		
+		# 스프링에서 JDBC를 사용하기위한 라이브러리
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		
+		# 커넥션 풀을 관리하는 라이브러리
+		<dependency>
+		    <groupId>commons-dbcp</groupId>
+		    => 라이브러리 배포그룹
+		    <artifactId>commons-dbcp</artifactId>
+		    => 라이브러리 이름(프로젝트이름)
+		    <version>1.4</version>
+		</dependency>
+
+
+		ojdbc6를 설치해야하는데
+		메이븐 방식으로 pom.xml에 등록해서 처리해도 되지만
+		만약 메이븐 저장소에 없는 라이브러리인 경우에
+		외부 저장소에서 다운로드해야하는 경우에는
+		
+		<repositories>
+			<repository>
+				<id>레포지토리아이디</id>
+				<url>외부 저장소 주소</url>
+			</repository>
+		</repositories>
+		태그를 <dependencies> 태그 위쪽에 먼저 등록을 한 후 사용하면 된다.
+		
+		
+		직접 다운로드 받은 라이브러리를 사용하는 방법
+			1. WEB-INF/lib 폴더에 다운로드 받은 라이브러리를 저장한다.
+			2. pom.xml파일에 내부라이브러리를 이용하는 <dependency> 태그를 작성한다.
+			
+			<dependency>
+				<groupId>com.oracle.database.jdbc</groupId>
+				<artifactId>ojdbc6</artifactId>
+				<version>11.2.0.4</version>
+				<scope>system</scope>
+				<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ojdbc6.jar</systemPath>
+			</dependency>
+			
+			
+----------------------------------------------------------------------------------------------------------
+
+커넥션 풀 설정하기
+
+1.
+	1) <resource> 태그를 애용해서 커넥션 풀을 설치한 후 처리하는 방법
+	
+		<Resource
+			name="jdbc/TestDB"
+			auth="Container"
+			type="javax.sql.DataSource"
+			maxTotal="8"
+			maxIdle="2"
+			maxWaitMillis="10000"
+			username="jennie"
+			password="12345"
+			driverClassName="oracle.jdbc.driver.OracleDriver"
+			url="jdbc:oracle:thin:@localhost:1521:xe"
+		/>
+		
+	2) Bean처리
+	
+		방법)
+			<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+				<property name="jndiName" value="java:/comp/env/jdbc/TestDB" />
+				<property name="resourceRef" value="true" />
+			</bean>
+			
+		=> 커넥션 풀을 따로 설치한 후
+			커넥션 풀을 사용하기 위한 DataSource 객체를 DI 처리한다.
+			
+2. 직접 Bean처리하는 방법
+	=> DataSource를 DI 객체로 생성하면서 그 안에서 커넥션 풀을 확보하는 방법
+	
+	방법)
+		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+			<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+			<property name="username" value="jennie" />
+			<property name="password" value="12345" />
+			<property name="maxActive" value="8" />
+		</bean>
+
+----------------------------------------------------------------------------------------------------------
+myBatis 연동
+=> 데이터베이스 처리를 좀 더 편하게 도와주는 프레임워크의 일종이다.
+	커넥션 풀에서 커넥션을 얻어오는 방법
+	질의명령 생성을 좀 더 편하게 해주고
+	질의를 실행해서 Model을 작성하는 방법 등등으로
+	개발자의 손을 거치지 않고 실행해주는 기능을 가지고있다.
+	
+A. 세팅
+	0. myBatis처리를 위한 라이브러리를 등록(pom.xml)
+	1. myBatis 환경설정
+		=> 여기서는 환경설정 파일의 경로와 이름만 지정하고
+			실제 환경설정은 해당 xml 파일을 이용해서 한다.
+			이 파일의 위치는 어디에 있어도 상관이 없다.
+			
+			우리의 경우
+				com.githrd.www.mybatis.mybatis-config.xml
+			파일에서 설정을 해두었다.
+	2. myBatis에서 제공하는 커넥션 풀의 커넥션을
+		DI기법으로 가지고 오도록 처리해준다.
+		
+B. 데이터베이스 처리를 위해서는 기본적으로 질의명령이 필요하다.
+	myBatis에서는 질의명령만 모아서 관리하는 방식을 채택하고 있다.
+	
+	이때 myBatis에서 질의명령만 모아놓는 방식은 xml 파일을 이용하는 방식으로 사용하고있다.
+	
+	**
+	xml 파일의 이름과 경로는 사용자가 정하는 것이고
+	다만 myBatis 환경설정 파일에 등록만 해주면 된다.
+	=> 이 과정을 우리는 "Mapping"시킨다 라고 표현한다.
+	
+	참고)
+		어떤 문서가 xml 파일이 되기 위한 조건
+		1. 필수 헤더 선언을 한다.
+			<?xml version="1.0" encoding="UTF-8" ?>
+			
+		2. 필요에 따라서 스키마 혹은 DTD 선언을 한다.
+			<!DOCTYPE mapper
+				PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+						
+		3. 필수적으로 반드시 한 개의 ROOT 태그가 존재해야한다.
+			<mapper namespace="mSQL">
+			</mapper>
+			
+C. DAO 제작
+	=> 일반클래스로 제작하면 된다.
+		목적상 질의 실행을 목적으로 하고 있으므로
+		당연히 커넥션(세션)이 필요할 것이다.
+		
+		따라서 환경설정에서 등록해둔 세션을 DI기법으로 처리해두면 된다.
+		
+참고)
+	질의명령 태그 작성방법
+		resultType
+		=> 질의명령의 실행결과 발생하는 인라인뷰에서
+			한 행을 어떤 타입으로 담을 것인지를 알려주면 된다.
+			
+			질의의 결과가 여러 행 발생하더라도
+			여러행에 대한 처리 즉 리스트로 만드는 작업은 마이바티스가 해결할 것이고
+			개발자는 한 행에 해당하는 타입을 어떻게 담을지만 결정하면 된다.
+			
+			우리의 경우 여러타입의 데이터는 VO를 사용해서 처리하고 있다.
+			
+		parameterType
+		=> 질의명령을 보낼 떄 바뀌는 데이터부분을 채워야할텐데
+			이때 전달받아 채울 데이터의 타입을 기술하면 된다.
+			문자열 	: String, string
+			정수 	: int
+			...
+			
+*****
+중요)
+	작성된 SQL파일(XML)은 반드시 매핑되어야 사용할 수 있다.
+	=> 이 작업은 myBatis 환경설정 파일에서 처리하면 된다.
+	
+	작성된 DAO 클래스는 컨트롤러 쪽에서 사용할 것이다.
+	그러면 당연히 DI기법으로 DAO 클래스를 사용할 것이고,
+	의존존주입이 되기 전에 먼저 <bean>처리가 되어야한다.
+	=> 우리의 경우는
+		servlet-context.xml에서 <bean>처리만 전담해서 처리하는
+		bean-context.xml을 불러와서 처리해주고있다.
+		
+		
+		
+		
+	
+	
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -56,6 +56,43 @@
 					성공 : /www/
 					실패 : /www/member/join.blp
 --------------------------------------------------------------------------------
+# 회원 탈퇴 처리 요청
+요청내용	:	/www/member/delMember.blp
+파라미터	:	
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	delMember()
+뷰			:	redirect ]
+					성공 : /www/
+					실패 : /www/member/myInfo.blp
+--------------------------------------------------------------------------------
+# 내정보 보기 요청
+요청내용	:	/www/member/myInfo.blp
+파라미터	:	id
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	myInfo()
+뷰			:	/WEB-INF/views/member/memberInfo.jsp
+--------------------------------------------------------------------------------
+# 내정보 수정 폼보기 요청
+요청내용	:	/www/member/myInfoEdit.blp
+파라미터	:	id
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	myInfoEdit()
+뷰			:	/WEB-INF/views/member/editInfo.jsp
+--------------------------------------------------------------------------------
+# 회원정보 보기 요청
+요청내용	:	/www/member/memberInfo.blp
+파라미터	:	id
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	memberInfo()
+뷰			:	/WEB-INF/views/member/memberInfo.jsp
+--------------------------------------------------------------------------------
+# 회원 리스트 보기 요청
+요청내용	:	/www/member/memberList.blp
+파라미터	:	무
+컨트롤러	:	com.githrd.www.controller.Member
+처리함수	:	memberList()
+뷰			:	/WEB-INF/views/member/memberList.jsp
+--------------------------------------------------------------------------------
 
 
 

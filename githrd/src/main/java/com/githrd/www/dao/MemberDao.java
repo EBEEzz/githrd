@@ -31,4 +31,25 @@ public class MemberDao {
 	public int addMember(MemberVO mVO) {
 		return sqlSession.insert("mSQL.addMember", mVO);
 	}
+	
+	//아이디로 회원정보 조회 전담 처리함수
+	public MemberVO getIdInfo(String id) {
+		return sqlSession.selectOne("mSQL.getIdInfo", id);
+	}
+	
+	public List<MemberVO> getMemberList() {
+		return sqlSession.selectList("mSQL.getMemberList");
+	}
+	
+	public int delMember(String id) {
+		return sqlSession.update("mSQL.delMember", id);
+	}
+	
+	public MemberVO myInfoEdit(String id) {
+		return sqlSession.selectOne("mSQL.getIdInfo", id);
+	}
+	
+	public List<MemberVO> genAvtList(String id){
+		return sqlSession.selectList("mSQL.genAvtList", id);
+	}
 }
