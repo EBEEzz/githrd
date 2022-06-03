@@ -233,7 +233,7 @@ Spring
 					@RequestMapping("/member/join.blp")
 					public void joinForm(){}
 					
-					==> 스프링은 요청 내요을 가지고 뷰를 선택하게된다.
+					==> 스프링은 요청 내용을 가지고 뷰를 선택하게된다.
 						/member/join.jsp 파일을 뷰 파일로 선택하게 된다.
 						
 		2. 반환값을 String 으로 해서 뷰를 지정하는 방법
@@ -268,7 +268,7 @@ Spring
 		스프링은 파라미터를 VO  클래스를 이용해서 받을 수 있다.
 		
 		장점 ]
-			파라미터가 많은 경우 일반적은 request 로 받으며
+			파라미터가 많은 경우 일반적으로는 request 로 받으며
 			코딩이 길어지고 복잡해진다.
 			이 문제를 해결하는 것으로 VO 클래스의 변수에
 			받은 파라미터 데이터를 한꺼번에 저장해 주는 것
@@ -292,7 +292,7 @@ Spring
 			주요함수
 				
 				addObject("키값", 데이터) 	==> req.setAttribute()와 같은 기능의 함수
-				setViewName("뷰")			==> 포워딩항 뷰를 셋팅하는 함수
+				setViewName("뷰")			==> 포워딩할 뷰를 세팅하는 함수
 				setView(View)				==> 리다이렉트 할 때 사용되는 함수
 					사용형식 ]
 						RedirectView rv = new RedirectView();
