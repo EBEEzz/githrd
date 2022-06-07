@@ -1,0 +1,162 @@
+# day03
+
+myBatis에서는 연결된 질의 명령을 하나의 질의 실행으로 연속해서 실행할 수 있다.
+
+예)
+	일련번호를 발생한 후 그 번호를 다른 곳에 insert 해야 할 경우
+	특정 테이블의 결과를 이용해서
+	다른 테이블에 그 내용을 사용해야 하는 경우
+	
+사용방법)
+
+	<실행태그 id="">
+		<selectKey keyProperty="키값"
+					resultType="데이터형태" parameterType="데이터형태"
+					order="BEFORE | AFTER">
+			질의명령
+		</selectKey>
+		
+		메인질의명령
+		
+	</실행태그>
+	
+-----------------------------------------------------------------------------------
+myBatis에서 사용하는 조건 처리 명령
+
+	1. if
+		형식)
+			<if test="조건식">
+				질의명령
+			</if>
+			=> 조건식이 참이면 질의명령을 해당위치에 추가하세요.
+			
+	2. choose, when, otherwise
+		형식)
+			<choose>
+				<when test="조건식">
+				
+				</when>
+				<when test="조건식2">
+				</when>
+				<when test="조건식3">
+				</when>
+				...
+				<otherwise>
+				</otherwise>
+			</choose>
+			
+	***
+	3. trim
+		=> 질의명령의 특성상 조건식을 처리할 때
+			첫번째 조건은 그냥 쓰면 되지만
+			두번째 조건부터는 AND | OR로
+			또는 
+			
+			UPDATE
+				MEMBER
+			SET
+				pw = #{pw},
+				mail = #{mail},
+				tel = #{tel},
+				avt = #{ano}
+			WHERE
+				id = #{id}
+			;
+			=> 비밀번호만 변경하는 경우는 pw = #{pw}로 만들어져야하고
+				전화번호도 변경하는 경우에는
+					pw = #{pw},
+					tel = #{tel}
+					
+			이런 경우 해결방법으로 만들어놓은 태그가 <trim>, <set>
+			
+			형식)
+				<trim prefix="WHERE" prefixOverrides="AND | OR">
+				</trim>
+				
+			의미)
+				이 문장이 실행되는 순간 무조건 where를 붙이세요.(<= prefix="WHERE")
+				다음 문장부터는 무조건 AND나 OR를 사용하는데
+				첫번째 것만 AND나 OR를 삭제하세요. (<= prefixOverrides="AND | OR")
+				
+			예)
+				SELECT
+					*
+				FROM
+					member
+				<trim prefix="WHERE" prefixOverrides="AND | OR">
+					<if test="조건식1">
+						AND avt = 11
+					</if>
+					<if test="조건식2">
+						AND gen = 'M'
+					</if>
+					<if test="조건식3">
+						AND gen = 'F'
+					</if>
+				</trim>
+				
+	4. foreach
+		
+		형식)
+			<foreach item="변수이름" index="st" collection="데이터"
+				open="???" seperator="???" close="???">
+			</foreach>
+			
+			=>
+				ArrayList에 담긴 데이터 갯수만큼 반복하면서
+				특정 질의명령을 만들어주는 명령이다.
+				
+				item=			변수
+				index=			순서를 기억하는 변수
+				collection=		ArrayList(실제 데이터가 담긴 변수)
+				open=			반복 전에 처리할 내용
+				seperator=		매 반복마다 처리할 내용
+				close=			반복이 끝나면 처리할 내용
+				
+		예)
+			SELECT
+				*
+			FROM
+				emp
+			WHERE
+				deptno IN(10)
+				deptno IN(10, 20)
+				deptno IN(10, 20, 30)
+				
+		처럼 IN 다음에 조건식에 사용할 내용이 그때마다 다른 경우가 발생할 수 있다.
+		
+		컨트롤러에서 데이터를 list라는 변수이름의 ArrayList를 기억했다면
+		
+		SELECT
+			*
+		FROM
+			emp
+		WHERE
+			deptno IN
+			<foreach item="data" index="idx" collection="list"
+					open="(" seperator="," close=")">
+				#{data}
+			</foreach>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
