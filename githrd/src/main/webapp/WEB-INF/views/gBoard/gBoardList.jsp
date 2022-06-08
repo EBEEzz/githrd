@@ -86,6 +86,7 @@
 	
 	<!-- 데이터 전송용 form 태그 -->
 	<form method="POST" action="/www/gBoard/gBoardList.blp" id="frm" name="frm">
+		<input type="hidden" id="view" name="vw">
 		<input type="hidden" id="nowPage" name="nowPage" value="${PAGE.nowPage}">
 	</form>
 </body>

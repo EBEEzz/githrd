@@ -55,4 +55,29 @@
 		WHERE
 		   rno BETWEEN #{startCont} AND #{endCont}
 	</select>
+	
+	<!-- 방명록 글쓰기 폼 데이터 조회 질의 -->
+	<select id="writeData" resultType="bVO" parameterType="string">
+		SELECT
+			mno, savename avatar
+		FROM
+			member, avatar
+		WHERE
+			avt = ano
+			AND id = #{id}
+	</select>
+	
+	<insert id="addGBoard" parameterType="bVO">
+		<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+			SELECT
+				NVL(MAX(gno) + 1, 1001)
+			FROM
+				guestboard
+		</selectKey>
+		INSERT INTO
+			guestboard(gno, writer, body)
+		VALUES(
+			#{bno}, #{mno}, #{body}
+		)
+	</insert>
 </mapper>

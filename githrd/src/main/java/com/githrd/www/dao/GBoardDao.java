@@ -26,4 +26,14 @@ public class GBoardDao {
 	public List<BoardVO> getList(PageUtil page) {
 		return sqlSession.selectList("gSQL.gBoardList", page);
 	}
+	
+	//게시글 작성 폼데이터 조회 전담 처리함수
+	public BoardVO getWriteData(String id) {
+		return sqlSession.selectOne("gSQL.writeData", id);
+	}
+	
+	//게시글 데이터베이스 등록 전담 처리함수
+	public int addGBoard(BoardVO bVO) {
+		return sqlSession.insert("gSQL.addGBoard", bVO);
+	}
 }

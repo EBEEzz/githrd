@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Member Redirect View</title>
+<title>Redirect View</title>
 <script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -13,12 +13,10 @@
 </script>
 </head>
 <body>
+<c:if test="${not empty VIEW}"/>
 	<form method="POST" action="${VIEW}" id="frm" name="frm">
-<c:if test="${not empty NOWPAGE}">
+<c:if test="${empty VIEW}">
 		<input type="hidden" name="nowPage" value="${NOWPAGE}">
-</c:if>
-<c:if test="${not empty SID}">
-		<input type="hidden" name="id" value="${SID}">
 </c:if>
 	</form>
 </body>

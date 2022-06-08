@@ -48,8 +48,12 @@ public class PageUtil {
 		setCont();
 	}
 	
+	public void setPage(int totalCount) {
+		setPage(this.nowPage, totalCount, pageRow, pageGroup);
+	}
+	
 	public void setPage(int nowPage, int totalCount) {
-		setPage(nowPage, totalCount, 3, 3);
+		setPage(nowPage, totalCount, pageRow, pageGroup);
 	}
 	
 	public void setPage(int nowPage, int totalCount, int pageRow, int pageGroup) {
@@ -63,8 +67,6 @@ public class PageUtil {
 		setEndPage();
 		setCont();
 	}
-	
-	
 	
 	// 총 페이지 수 계산하는 함수
 	public void setTotalPage() {
