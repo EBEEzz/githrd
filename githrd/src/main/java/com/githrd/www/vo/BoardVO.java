@@ -7,9 +7,8 @@ import java.text.*;
 
 public class BoardVO {
 	private int mno, bno, upno, rno, ano, click, cnt, step;
-	private String id, title, body, sdate, stime, avatar;
+	private String id, title, body, sdate, avatar;
 	private Date wdate;
-	private Time wtime;
 	public int getMno() {
 		return mno;
 	}
@@ -80,21 +79,11 @@ public class BoardVO {
 		return sdate;
 	}
 	public void setSdate() {
-		SimpleDateFormat form = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat form = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		sdate = form.format(wdate);
 	}
 	public void setSdate(String sdate) {
 		this.sdate = sdate;
-	}
-	public String getStime() {
-		return stime;
-	}
-	public void setStime() {
-		SimpleDateFormat form = new SimpleDateFormat("HH:mm:ss");
-		stime = form.format(wtime);
-	}
-	public void setStime(String stime) {
-		this.stime = stime;
 	}
 	public String getAvatar() {
 		return avatar;
@@ -109,18 +98,11 @@ public class BoardVO {
 		this.wdate = wdate;
 		setSdate();
 	}
-	public Time getWtime() {
-		return wtime;
-	}
-	public void setWtime(Time wtime) {
-		this.wtime = wtime;
-		setStime();
-	}
 	@Override
 	public String toString() {
-		return "BoardVO [mno=" + mno + ", bno=" + bno + ", upno=" + upno + ", rno=" + rno + ", ano=" + ano + ", cnt="
-				+ cnt + ", step=" + step + ", id=" + id + ", title=" + title + ", body=" + body + ", sdate=" + sdate
-				+ ", avatar=" + avatar + ", wdate=" + wdate + ", wtime=" + wtime + "]";
+		return "BoardVO [mno=" + mno + ", bno=" + bno + ", upno=" + upno + ", rno=" + rno + ", ano=" + ano + ", click="
+				+ click + ", cnt=" + cnt + ", step=" + step + ", id=" + id + ", title=" + title + ", body=" + body
+				+ ", sdate=" + sdate + ", avatar=" + avatar + ", wdate=" + wdate + "]";
 	}
 	
 }

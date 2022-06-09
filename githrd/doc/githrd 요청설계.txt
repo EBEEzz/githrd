@@ -12,7 +12,7 @@
 ### 회원관련 요청 설계
 # 로그인 폼 보기 요청
 요청내용	:	/www/member/login.blp
-파라미터	:	무
+파라미터	:	무 [ vw, nowPage ]
 컨트롤러	:	com.githrd.www.controller.Member
 처리함수	:	loginForm()
 뷰			:	/WEB-INF/views/member/login.jsp
@@ -144,10 +144,45 @@
 뷰			:	/WEB-INF/views/reBoard/reBoardWrite.jsp
 --------------------------------------------------------------------------------
 # 댓글 게시판 글 등록 처리 요청
-요청내용	:	/www/reBoard/WriteProc.blp
+요청내용	:	/www/reBoard/writeProc.blp
 파라미터	:	nowPage, mno, body
 컨트롤러	:	com.githrd.www.controller.ReBoard
 처리함수	:	writeProc()
+뷰			:	/WEB-INF/views/reBoard/redirect.jsp
+--------------------------------------------------------------------------------
+# 댓글 게시판 댓글 작성 폼 보기 요청
+요청내용	:	/www/reBoard/commentWrite.blp
+파라미터	:	nowPage, id, bno, vw
+컨트롤러	:	com.githrd.www.controller.ReBoard
+처리함수	:	commentWrite()
+뷰			:	/WEB-INF/views/reBoard/reBoardComment.jsp
+--------------------------------------------------------------------------------
+# 댓글 게시판 댓글 등록 처리 요청
+요청내용	:	/www/reBoard/commentProc.blp
+파라미터	:	nowPage, vw, id, mno, upno, body
+컨트롤러	:	com.githrd.www.controller.ReBoard
+처리함수	:	writeProc()
+뷰			:	/WEB-INF/views/reBoard/redirect.jsp
+--------------------------------------------------------------------------------
+# 댓글 게시판 글 수정 폼 보기 요청
+요청내용	:	/www/reBoard/reBoardEdit.blp
+파라미터	:	nowPage, vw, bno
+컨트롤러	:	com.githrd.www.controller.ReBoard
+처리함수	:	reBoardEdit()
+뷰			:	/WEB-INF/views/reBoard/reBoardEdit.jsp
+--------------------------------------------------------------------------------
+# 댓글 게시판 글 수정 처리 요청
+요청내용	:	/www/reBoard/editProc.blp
+파라미터	:	nowPage, vw, bno, body
+컨트롤러	:	com.githrd.www.controller.ReBoard
+처리함수	:	editProc()
+뷰			:	/WEB-INF/views/reBoard/redirect.jsp
+--------------------------------------------------------------------------------
+# 댓글 게시판 글 삭제 처리 요청
+요청내용	:	/www/reBoard/delReBoard.blp
+파라미터	:	nowPage, vw, bno
+컨트롤러	:	com.githrd.www.controller.ReBoard
+처리함수	:	delReBoard()
 뷰			:	/WEB-INF/views/reBoard/redirect.jsp
 --------------------------------------------------------------------------------
 
