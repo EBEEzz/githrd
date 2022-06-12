@@ -56,4 +56,9 @@ $(document).ready(function(){
 		$(location).attr('href', '/www/fileBoard/fileBoardList.blp');
 	});
 	*/
+	
+	$('#sbtn').click(function(){
+		$('#frm').attr('action', '/www/survey/surveyInfo.blp');
+		$('#frm').submit();
+	});
 });
