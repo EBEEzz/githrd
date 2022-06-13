@@ -198,7 +198,7 @@
 --------------------------------------------------------------------------------
 # 설문조사 폼 보기 요청
 요청내용	:	/www/survey/survey.blp
-파라미터	:	id, sino
+파라미터	:	id, sino, title
 컨트롤러	:	com.githrd.www.controller.Survey
 처리함수	:	survey()
 뷰			:	/WEB-INF/views/survey/survey.jsp

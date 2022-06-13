@@ -316,3 +316,61 @@ WHERE
     sysdate BETWEEN sistart AND siend
 ;
 
+
+-- 종료된 설문 리스트 가져오기 질의명령
+
+SELECT
+    sino, sititle title
+FROM
+    surveyinfo
+WHERE
+    siend < sysdate
+;
+
+-- 설문번호로 설문 주제 정보 조회 질의 명령
+SELECT
+    sino, sititle title
+FROM
+    surveyinfo
+WHERE
+    sino = 1001
+;
+
+
+-- 설문번호로 설문 문항 조회 질의명령
+SELECT
+    sqno qno, sqbody body, squpno upno
+FROM
+    surveyQuest
+WHERE
+    sq_sino = 1001
+    AND squpno IS NULL
+ORDER BY
+    sqno
+;
+
+-- 문항번호로 보기 조회 질의명령
+SELECT
+    sqno qno, sqbody body 
+FROM
+    surveyQuest
+WHERE
+    squpno = 100001
+ORDER BY
+    sqno
+;
+
+-- 계층질의명령을 활용해서 문제와 보기 조회
+SELECT
+    sqno, sqbody body, NVL(squpno, sqno) upno
+FROM
+    surveyQuest
+WHERE
+    sq_sino = 1001
+START WITH
+    squpno IS NULL
+CONNECT BY
+    PRIOR sqno = squpno
+ORDER SIBLINGS BY
+    sqno
+;

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
 import com.githrd.www.dao.*;
+import com.githrd.www.service.*;
 import com.githrd.www.vo.*;
 
 @Controller
@@ -15,6 +16,8 @@ import com.githrd.www.vo.*;
 public class Survey {
 	@Autowired
 	SurveyDao sDao;
+	@Autowired
+	SurveyService sSrvc;
 	
 	@RequestMapping("/surveyInfo.blp")
 	public ModelAndView surveyInfo(ModelAndView mv, SurveyVO sVO) {
@@ -30,5 +33,20 @@ public class Survey {
 		return mv;
 	}
 	
-	
+	/**
+	 * 설문조사 폼보기 요청 처리함수
+	 */
+	@RequestMapping("/survey.blp")
+	public ModelAndView survey(ModelAndView mv, SurveyVO sVO) {
+		
+//		sSrvc.setBogi(sVO);
+		sSrvc.settingList(sVO);
+		
+		// 데이터 심고
+		mv.addObject("DATA", sVO);
+		
+		// 뷰 설정
+		mv.setViewName("survey/survey");
+		return mv;
+	}
 }

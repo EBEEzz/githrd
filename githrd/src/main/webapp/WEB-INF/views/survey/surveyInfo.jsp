@@ -22,20 +22,29 @@
 </style>
 </head>
 <body>
+	<form method="POST" action="/www/survey/survey.blp" id="frm" name="frm">
+		<input type="hidden" name="id" value="${SID}">
+		<input type="hidden" name="title" id="title">
+		<input type="hidden" name="sino" id="sino">
+	</form>
+
 	<div class="w3-content w3-center mx650">
-		<h1 class="w3-blue w3-padding w3-card-4">Survey Information</h1>
+		<h1 class="w3-margin-top w3-blue w3-padding w3-card-4">Survey Information</h1>
 		
 <!-- 진행중인 설문 리스트 -->
 <c:if test="${not empty ING }">
 		<div class="w3-col w3-left-align w3-card-4">
-			<h3 class="w3-blue">진행중인 설문</h3>
+			<div class="w3-col w3-blue">
+				<h3 class="w3-padding">진행중인 설문</h3>
+			</div>
+			
 			<div class="w3-col">
 	<c:forEach var="data" items="${ING}" varStatus="st">
 		<c:if test="${data.cnt eq 0}">
-				<h3 class="w3-text-blue" id="${data.sino}">${st.count}. ${data.title}</h3>
+				<h3 class="w3-col w3-button w3-text-blue w3-hover-pink yet" id="${data.sino}">${st.count}. ${data.title}</h3>
 		</c:if>
 		<c:if test="${data.cnt eq 1}">
-				<h3 id="${data.sino}">${st.count}. ${data.title}</h3>
+				<h3 class="w3-col w3-button w3-text-grey w3-hover-orange done" id="${data.sino}">${st.count}. ${data.title}</h3>
 		</c:if>
 	</c:forEach>
 			</div>

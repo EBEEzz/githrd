@@ -71,10 +71,11 @@
 						<div class="w3-col m3 pdh10">
 							<h5 class="w3-col w3-button w3-pink w3-hover-light-green" id="gbtn">방명록</h5>
 						</div>
+<c:if test="${not empty SID}">
 						<div class="w3-col m3 pdh10">
 							<h5 class="w3-col w3-button w3-red w3-hover-light-green" id="sbtn">설문조사</h5>
 						</div>
-
+</c:if>
 						<div class="w3-col m3 pdh10">
 							<h5 class="w3-col w3-button w3-deep-orange w3-hover-light-green" id="rbtn">댓글게시판</h5>
 						</div>

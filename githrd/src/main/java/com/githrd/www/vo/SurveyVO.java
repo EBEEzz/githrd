@@ -4,7 +4,7 @@ import java.util.*;
 import java.text.*;
 
 public class SurveyVO {
-	private int mno, ano, cnt, sino, sqno, svno, total;
+	private int mno, ano, cnt, sino, sqno, svno, upno, total;
 	private double per;
 	private String id, avatar, title, body, sdate;
 	private Date svdate;
@@ -54,6 +54,12 @@ public class SurveyVO {
 	}
 	public int getTotal() {
 		return total;
+	}
+	public int getUpno() {
+		return upno;
+	}
+	public void setUpno(int upno) {
+		this.upno = upno;
 	}
 	public void setTotal(int total) {
 		this.total = total;

@@ -54,4 +54,45 @@
 		WHERE
 		    siend <![CDATA[<]]> sysdate 
 	</select>
+	
+	<!-- 설문주제번호로 문항조회 질의명령 -->
+	<select id="questList" resultType="sVO" parameterType="int">
+		SELECT
+		    sqno, sqbody body
+		FROM
+		    surveyQuest
+		WHERE
+		    sq_sino = #{sino}
+		    AND squpno IS NULL
+		ORDER BY
+		    sqno
+	</select>
+	
+	<!-- 설문 문항번호로 설문 보기 조회 질의명령 -->
+	<select id="bogiList" resultType="sVO" parameterType="int">
+		SELECT
+		    sqno, sqbody body 
+		FROM
+		    surveyQuest
+		WHERE
+		    squpno = #{upno}
+		ORDER BY
+		    sqno
+	</select>
+	
+	<!-- 계층형 쿼리로 문항리스트 조회 질의명령 -->
+	<select id="qList" resultType="sVO" parameterType="int">
+		SELECT
+		    sqno, sqbody body, NVL(squpno, sqno) upno
+		FROM
+		    surveyQuest
+		WHERE
+		    sq_sino = #{sino}
+		START WITH
+		    squpno IS NULL
+		CONNECT BY
+		    PRIOR sqno = squpno
+		ORDER SIBLINGS BY
+		    sqno
+	</select>
 </mapper>
