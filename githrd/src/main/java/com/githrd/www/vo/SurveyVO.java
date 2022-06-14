@@ -9,7 +9,14 @@ public class SurveyVO {
 	private String id, avatar, title, body, sdate;
 	private Date svdate;
 	private List<SurveyVO> bogi;
+	private int[] dap;
 	
+	public int[] getDap() {
+		return dap;
+	}
+	public void setDap(int[] dap) {
+		this.dap = dap;
+	}
 	public List<SurveyVO> getBogi() {
 		return bogi;
 	}

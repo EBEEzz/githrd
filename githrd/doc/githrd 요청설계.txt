@@ -203,6 +203,20 @@
 처리함수	:	survey()
 뷰			:	/WEB-INF/views/survey/survey.jsp
 --------------------------------------------------------------------------------
+# 설문조사 입력 처리 요청
+요청내용	:	/www/survey/surveyProc.blp
+파라미터	:	id, sino, title, dap[]
+컨트롤러	:	com.githrd.www.controller.Survey
+처리함수	:	surveyProc()
+뷰			:	/WEB-INF/views/survey/survey.jsp
+--------------------------------------------------------------------------------
+# 설문조사 결과 폼 보기 요청
+요청내용	:	/www/survey/surveyResult.blp
+파라미터	:	id, sino, title
+컨트롤러	:	com.githrd.www.controller.Survey
+처리함수	:	surveyResult()
+뷰			:	/WEB-INF/views/survey/surveyResult.jsp
+--------------------------------------------------------------------------------
 
 
 

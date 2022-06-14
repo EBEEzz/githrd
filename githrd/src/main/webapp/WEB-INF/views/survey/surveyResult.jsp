@@ -22,34 +22,42 @@
 </style>
 </head>
 <body>
+<!-- 
+	현재 설문에 응답한 사람수를 조회하세요.
+	득표율도 조회하세요.
+	
+	참고)
+		득표율
+			=> 해당 보기 선택 사람 수 * 100. / 설문에 참여한 총 사람 수
+ -->
 	<form method="POST" action="#" id="frm" name="frm">
 		<input type="hidden" name="id" value="${SID}">
-		<input type="hidden" name="sino" value="${DATA.sino}">
-		<input type="hidden" name="title" value="${DATA.title}">
+		<input type="hidden" name="sino" value="${param.sino}">
+		<input type="hidden" name="title" value="${param.title}">
 	</form>
 	
 	<div class="w3-content w3-center mx650">
-		<h1 class="w3-blue w3-padding w3-card-4">설문 조사</h1>
+		<h1 class="w3-pink w3-padding w3-card-4">설문 조사 결과</h1>
 		
-		<h2 class="w3-col w3-text-indigo w3-margin-bottom w3-margin-top">${DATA.title}</h2>
+		<h2 class="w3-col w3-text-indigo w3-margin-bottom w3-margin-top">${param.title}</h2>
 		
-	<form name="frm1">
 <c:forEach var="quest" items="${DATA.bogi}" varStatus="st">
 		<div class="w3-col w3-margin-top w3-padding w3-card-4">
 			<h3 class="w3-left-align quest">${st.count}. ${quest.body}</h3>
 			<div class="w3-col" style="padding-left: 50px;">
 	<c:forEach var="answer" items="${quest.bogi}" varStatus="bst">
-				<h4 class="w3-col w3-left-align"><input type="radio" name="${quest.sqno}" id="${answer.sqno}" value="${answer.sqno}"> <label for="${answer.sqno}"> ${bst.count}. ${answer.body}</label></h4>
+				<h4 class="w3-col w3-left-align"><label> ${bst.count}. ${answer.body}</label></h4>
+				<div class="w3-col">
+					<div class="w3-col w3-amber" style="width: ${DATA.per}%; height: 15px;"></div>
+				</div>
 	</c:forEach>
 			</div>
 		</div>
 </c:forEach>
-	</form>
 
-		<div class="w3-col w3-margin-top w3-card-4">
-			<div class="w3-third w3-green w3-button" id="lbtn">list</div>
-			<div class="w3-third w3-blue w3-button" id="rbtn">reset</div>
-			<div class="w3-third w3-orange w3-button" id="sbtn">submit</div>
+		<div class="w3-col w3-margin-top w3-margin-bottom w3-card-4">
+			<div class="w3-half w3-green w3-button" id="hbtn">home</div>
+			<div class="w3-half w3-blue w3-button" id="lbtn">list</div>
 		</div>
 	</div>
 </body>

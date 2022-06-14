@@ -374,3 +374,37 @@ CONNECT BY
 ORDER SIBLINGS BY
     sqno
 ;
+
+-----------------------------------------------
+-- 응답 추가 질의명령
+INSERT INTO
+    survey(svno, smno, sv_sqno)
+VALUES(
+    (SELECT NVL(MAX(svno) + 1, 100001) FROM survey),
+    1001, 100004
+)
+;
+
+SELECT
+    count(DISTINCT smno) total
+FROM
+    survey
+WHERE
+    sv_sqno IN (
+        SELECT
+            sqno
+        FROM
+            surveyQuest
+        WHERE
+            sq_sino = 1001
+    )
+;
+
+SELECT
+    count(DISTINCT smno) total
+FROM
+    survey, surveyQuest
+WHERE
+    sv_sqno(+) = sqno
+    AND sq_sino = 1001
+;

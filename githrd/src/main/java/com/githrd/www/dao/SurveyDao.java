@@ -40,4 +40,9 @@ public class SurveyDao {
 	public List<SurveyVO> getQList(int sino){
 		return sqlSession.selectList("sSQL.qList", sino);
 	}
+	
+	// 설문 응답 입력 전담 처리함수
+	public int addSurvey(SurveyVO sVO) {
+		return sqlSession.insert("sSQL.addSurvey", sVO);
+	}
 }

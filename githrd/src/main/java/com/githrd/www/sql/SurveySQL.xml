@@ -95,4 +95,25 @@
 		ORDER SIBLINGS BY
 		    sqno
 	</select>
+	
+	<!-- 응답 추가 질의명령 -->
+	<insert id="addSurvey" parameterType="sVO">
+		<selectKey keyProperty="mno" resultType="int" order="BEFORE">
+			SELECT
+				mno
+			FROM
+				member
+			WHERE
+				id = #{id}
+		</selectKey>
+		INSERT INTO
+		    survey(svno, smno, sv_sqno)
+		VALUES(
+		    (SELECT NVL(MAX(svno) + 1, 100001) FROM survey),
+		    #{mno}, #{sqno}
+		)
+	</insert>
+	<!--  
+		sv_sqno IN (100001, 100002, ....)
+	-->
 </mapper>
