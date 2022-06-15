@@ -79,8 +79,16 @@ public class Survey {
 	
 	// 설문 결과페이지 폼보기 요청
 	@RequestMapping("/surveyResult.blp")
-	public ModelAndView surveyResult(ModelAndView mv) {
+	public ModelAndView surveyResult(ModelAndView mv, SurveyVO sVO) {
+		sSrvc.resultService(sVO);
+		
+		//위의 함수 호출로 sVO 변수에 변화가 생겼으므로 그냥 심어주면 된다.
+		//데이터 심기
+		mv.addObject("DATA", sVO);
+		
 		mv.setViewName("survey/surveyResult");
 		return mv;
 	}
+	
+	
 }

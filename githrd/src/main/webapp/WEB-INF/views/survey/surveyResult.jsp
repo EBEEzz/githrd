@@ -41,14 +41,18 @@
 		
 		<h2 class="w3-col w3-text-indigo w3-margin-bottom w3-margin-top">${param.title}</h2>
 		
+<!-- 설문 문항 내용 만들기 -->
 <c:forEach var="quest" items="${DATA.bogi}" varStatus="st">
 		<div class="w3-col w3-margin-top w3-padding w3-card-4">
 			<h3 class="w3-left-align quest">${st.count}. ${quest.body}</h3>
-			<div class="w3-col" style="padding-left: 50px;">
+			<div class="w3-col w3-margin-bottom" style="padding-left: 50px;">
+	<!-- 설문 문항의 보기 만들기 -->
 	<c:forEach var="answer" items="${quest.bogi}" varStatus="bst">
-				<h4 class="w3-col w3-left-align"><label> ${bst.count}. ${answer.body}</label></h4>
-				<div class="w3-col">
-					<div class="w3-col w3-amber" style="width: ${DATA.per}%; height: 15px;"></div>
+				<h4 class="w3-col w3-left-align mb0"><label> ${bst.count}) ${answer.body} <span class="w3-text-indigo posRtvBt2"><small>- ${answer.per}%</small></span></label></h4>
+				<div class="w3-col pdh2780">
+					<div class="w3-col w3-border w3-border-grey">
+						<div class="w3-col w3-blue" style="width: ${answer.per}%; height: 15px;"></div>
+					</div>
 				</div>
 	</c:forEach>
 			</div>

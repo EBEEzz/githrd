@@ -116,4 +116,37 @@
 	<!--  
 		sv_sqno IN (100001, 100002, ....)
 	-->
+	
+	<select id="resultList" resultType="sVO" parameterType="int">
+		SELECT
+		    sqno, sqbody body, NVL(squpno, sqno) upno,
+		    NVL(ROUND(cnt / total * 100, 2), 0) per
+		FROM
+		    surveyQuest, (
+		        SELECT
+		            sqno qno, COUNT(sv_sqno) cnt
+		        FROM
+		            surveyQuest, survey
+		        WHERE
+		            sqno = sv_sqno(+)
+		            AND squpno IS NOT NULL
+		            AND sq_sino = #{sino}
+		        GROUP BY
+		            sqno
+		        ORDER BY
+		            qno
+		    ), (
+		        SELECT
+		            count(DISTINCT smno) total
+		        FROM
+		            survey, surveyQuest
+		        WHERE
+		            sv_sqno(+) = sqno
+		            AND sq_sino = #{sino}
+		    )
+		WHERE
+		    sqno = qno(+)
+		ORDER BY
+		    upno, sqno
+	</select>
 </mapper>

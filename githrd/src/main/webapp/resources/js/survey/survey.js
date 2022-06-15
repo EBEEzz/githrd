@@ -13,6 +13,27 @@ $(document).ready(function(){
 		$('#frm').submit();
 	});
 	
+	$('.done').click(function() {
+		//넘겨줄 데이터 읽어오기
+		var sno = $(this).attr('id');
+		var txt = $(this).text();
+		txt = txt.substring(txt.indexOf('.' + 2));
+		
+		//입력태그에 데이터 채우기
+		$('#sino').val(sno);
+		$('#title').val(txt);
+		
+		//서버주소 정하기
+		$('#frm').attr('action', '/www/survey/surveyResult.blp');
+		//폼 전송
+		$('#frm').submit();
+	});
+	
+	//홈버튼 클릭이벤트
+	$('#hbtn').click(function() {
+		$(location).attr('href', '/www/');
+	});
+	
 	$('#lbtn').click(function() {
 		$('#frm').attr('action', '/www/survey/surveyInfo.blp');
 		$('#frm').submit();

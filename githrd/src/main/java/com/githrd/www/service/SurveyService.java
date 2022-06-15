@@ -72,38 +72,72 @@ public class SurveyService {
 	}
 	
 	// 전체 응답 입력 처리 서비스 함수
-		@Transactional
-		public boolean addAllDap(SurveyVO sVO) {
-			// 응답 번호를 기억하는 배열을 꺼낸다.
-			int[] dapArr = sVO.getDap();
-			
-			
+	@Transactional
+	public boolean addAllDap(SurveyVO sVO) {
+		// 응답 번호를 기억하는 배열을 꺼낸다.
+		int[] dapArr = sVO.getDap();
+		
+		
 //			작동 확인용 테스트 카운트변수
 //			int cnt = 0;
-			
-			for(int qno : dapArr) {
-		/*
-				// 트랜젝션 확인 테스트용 코드
-				if(cnt++ == 2) {
-					qno = 1111111;
-				}
-		*/
-				sVO.setSqno(qno);
-				sDao.addSurvey(sVO);
+		
+		for(int qno : dapArr) {
+	/*
+			// 트랜젝션 확인 테스트용 코드
+			if(cnt++ == 2) {
+				qno = 1111111;
 			}
-			
-			return true;
+	*/
+			sVO.setSqno(qno);
+			sDao.addSurvey(sVO);
 		}
 		
-		// 트랜잭션 적용 처리작업 호출 함수
-		public boolean applyTx(SurveyVO sVO) {
-			boolean bool = false;
-			try {
-				bool = addAllDap(sVO);
-			} catch(Exception e) {
-				bool = false;
+		return true;
+	}
+	
+	// 트랜잭션 적용 처리작업 호출 함수
+	public boolean applyTx(SurveyVO sVO) {
+		boolean bool = false;
+		try {
+			bool = addAllDap(sVO);
+		} catch(Exception e) {
+			bool = false;
+		}
+		
+		return bool;
+	}
+	
+	//설문 결과 조회 데이터 가져오기 서비스 함수
+	public void resultService(SurveyVO sVO) {
+		//데이터베이스에서 데이터 가져오기
+		List<SurveyVO> list = sDao.getResultList(sVO.getSino());
+		//위의 리스트는 문항과 보기의 정보가 혼합되어서 만들어진 리스트이다.
+		//따라서 문항과 보기를 분리해야한다.
+		
+		//문항 정보들을 기억할 리스트
+		List<SurveyVO> munhang = new ArrayList<SurveyVO>();
+		for(SurveyVO vo : list) {
+			if(vo.getSqno() == vo.getUpno()) {
+				//이 경우는 문항에 해당하므로
+				munhang.add(vo);
+			}
+		}
+		
+		//문항의 보기리스트 채우기
+		for(SurveyVO vo : munhang) {
+			List<SurveyVO> bogi = new ArrayList<SurveyVO>();
+			for(SurveyVO data : list) {
+				if(vo.getSqno() == data.getUpno() && data.getSqno() != data.getUpno()) {
+					//data는 문항에 해당하는 보기 정보이므로 추가해준다.
+					bogi.add(data);
+				}
 			}
 			
-			return bool;
+			//문항에 해당하는 보기 리스트가 완성되었으므로 VO에 추가해준다.
+			vo.setBogi(bogi);
 		}
+		
+		//문항들 정보 채워주기
+		sVO.setBogi(munhang);
+	}
 }

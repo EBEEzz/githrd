@@ -45,4 +45,9 @@ public class SurveyDao {
 	public int addSurvey(SurveyVO sVO) {
 		return sqlSession.insert("sSQL.addSurvey", sVO);
 	}
+	
+	//설문주제번호로 설문결과조회 전담 처리함수
+	public List<SurveyVO> getResultList(int sino) {
+		return sqlSession.selectList("sSQL.resultList", sino);
+	}
 }
