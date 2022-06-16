@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.servlet.http.*;
 
+import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,10 @@ import com.githrd.www.vo.*;
 @Controller
 @RequestMapping("/member")
 public class Member {
+	
+	private static final Logger memberLog = LoggerFactory.getLogger(Member.class); // 4.
+	private static final Logger membLog = LoggerFactory.getLogger("memberLog"); // 4. 
+	
 	@Autowired
 	MemberDao mDao;
 	@Autowired
@@ -48,7 +53,10 @@ public class Member {
 		
 		int cnt = mDao.getLogin(mVO);
 		if(cnt == 1) {
-			session.setAttribute("SID", mVO.getId());
+			session.setAttribute("SID", mVO.getId()); // 로그인 처리
+			// 로그처리
+			membLog.info(mVO.getId() + " 님이 로그인 했습니다."); // 5. 로그메세지 출력....
+			
 			session.setAttribute("MSG_CHECK", "OK");
 			int count = gDao.getMyCount(mVO.getId());
 			session.setAttribute("CNT", count);
@@ -137,7 +145,10 @@ public class Member {
 	
 	@RequestMapping("/logout.blp")
 	public ModelAndView logout(ModelAndView mv, HttpSession session, String vw, String nowPage) {
+		String sid = (String) session.getAttribute("SID");
 		session.removeAttribute("SID");
+		
+		membLog.info("### " + sid + " 님이 로그아웃 했습니다.");
 		
 		if(vw == null) {
 			vw = "/www/";

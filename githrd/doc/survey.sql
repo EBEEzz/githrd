@@ -388,23 +388,103 @@ VALUES(
 SELECT
     count(DISTINCT smno) total
 FROM
-    survey
-WHERE
-    sv_sqno IN (
-        SELECT
-            sqno
-        FROM
-            surveyQuest
-        WHERE
-            sq_sino = 1001
-    )
-;
-
-SELECT
-    count(DISTINCT smno) total
-FROM
     survey, surveyQuest
 WHERE
     sv_sqno(+) = sqno
     AND sq_sino = 1001
 ;
+
+-------------------------------------------------------
+-- 문항 본문, 보기들, 보기들 득표율
+-- 득표율 : 획득표 / 전체표
+
+-- 각 문항별 득표 수
+SELECT
+    sqno, COUNT(sv_sqno) cnt
+FROM
+    surveyQuest, survey
+WHERE
+    sqno = sv_sqno(+)
+    AND squpno IS NOT NULL
+    AND sq_sino = 1001
+GROUP BY
+    sqno
+;
+
+
+-- 설문주제번호로 설문 결과 조회
+SELECT
+    sqno, sqbody body, NVL(squpno, sqno) upno, ROUND(cnt / total * 100, 2) per
+FROM
+    surveyQuest, 
+    (
+        SELECT
+            sqno qno, COUNT(sv_sqno) cnt
+        FROM
+            surveyQuest, survey
+        WHERE
+            sqno = sv_sqno(+)
+            AND squpno IS NOT NULL
+            AND sq_sino = 1001
+        GROUP BY
+            sqno
+        ORDER BY
+            qno
+    ),
+    (
+        SELECT
+            count(DISTINCT smno) total
+        FROM
+            survey, surveyQuest
+        WHERE
+            sv_sqno(+) = sqno
+            AND sq_sino = 1001
+    )
+WHERE
+    sqno = qno(+)
+ORDER BY
+    upno, sqno
+;
+
+-- 설문 문항번호로 보기 정보를 조회하는 질의명령
+SELECT
+    sqno, sqbody body, NVL(squpno, sqno) upno, ROUND(cnt / total * 100, 2) per
+FROM
+    surveyQuest, 
+    (
+        SELECT
+            sqno qno, COUNT(sv_sqno) cnt
+        FROM
+            surveyQuest, survey
+        WHERE
+            sqno = sv_sqno(+)
+            AND squpno = 100001
+        GROUP BY
+            sqno
+        ORDER BY
+            qno
+    ),
+    (
+        SELECT
+            count(DISTINCT smno) total
+        FROM
+            survey, surveyQuest
+        WHERE
+            sv_sqno(+) = sqno
+            AND squpno = 100001
+    )
+WHERE
+    sqno = qno
+ORDER BY
+    upno, sqno
+;
+
+
+
+
+
+
+
+
+
+

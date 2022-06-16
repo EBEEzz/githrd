@@ -2,7 +2,8 @@ package com.githrd.www.controller;
 
 import java.util.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
@@ -14,6 +15,9 @@ import com.githrd.www.vo.*;
 @Controller
 @RequestMapping("/survey")
 public class Survey {
+	
+	private static final Logger surveyLog = LoggerFactory.getLogger(Survey.class);
+	private static final Logger sLog = LoggerFactory.getLogger("surveyLog");
 	@Autowired
 	SurveyDao sDao;
 	@Autowired
@@ -67,6 +71,8 @@ public class Survey {
 		if(!bool) {
 			// 실패한 작업이 있는 경우
 			view = "/www/survey/survey.blp";
+		} else {
+			sLog.info(sVO.getId() + " 님이 [ " + sVO.getSino() + " ] 번 설문에 참여 완료했습니다.");
 		}
 		
 		// 데이터심고
