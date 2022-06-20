@@ -52,6 +52,11 @@
 .mb5 {
 	margin-bottom: 5px;
 }
+
+.mgv0 {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
 /* padding */
 .pdh20 {
 	padding-left: 20px;

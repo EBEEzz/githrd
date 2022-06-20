@@ -12,6 +12,7 @@
 	<context:annotation-config />
 	
 	<bean id="mDao" class="com.githrd.www.dao.MemberDao" />
+	<bean id="bDao" class="com.githrd.www.dao.BoardDao" />
 	<bean id="gDao" class="com.githrd.www.dao.GBoardDao" />
 	<bean id="rDao" class="com.githrd.www.dao.ReBoardDao" />
 	<bean id="sDao" class="com.githrd.www.dao.SurveyDao" />

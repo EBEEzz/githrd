@@ -20,10 +20,6 @@
 	max-width: 800px;
 }
 
-.w85p {
-	width: 85%;
-}
-
 /* 디스플레이 */
 .inblock {
 	display: inline-block;
@@ -55,6 +51,10 @@
 	margin-left: 20px;
 }
 
+.mgv0 {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
 /* 패딩 클래스*/
 .pdAll10 {
 	padding: 10px;
@@ -105,10 +105,6 @@
 .bdminH {
 	min-height: 60px;
 	padding-bottom: 5px;
-}
-.box200 {
-	width: 200px;
-	height: 200px;
 }
 .box250 {
 	width: 250px;
@@ -166,9 +162,6 @@
 	left: -7px;
 }
 
-.border2px {
-	border: 2px solid lightgrey;
-}
 .border3px {
 	border: 3px solid lightgrey;
 }
@@ -230,10 +223,6 @@
 	font-weight: bold;
 }
 
-.inblock {
-	display: inline-block;
-}
-
 .w200 {
 	width: 200px;
 }
@@ -279,6 +268,14 @@
 	padding: 10px;
 }
 
+.pd15 {
+	padding: 15px;
+}
+
+.pd20 {
+	padding: 20px;
+}
+
 .pdh1 {
 	padding: 0px 1px;
 }
@@ -291,10 +288,26 @@
 	padding: 0px 5px;
 }
 
+.pdh20 {
+	padding: 0px 20px;
+}
+
+.pdh50 {
+	padding: 0px 50px;
+}
+
+.frmpadding{
+	padding: 20px 50px 20px 10px;
+}
+
+.pd20-50 {
+	padding: 20px 50px;
+}
+
 .clslbl {
 	font-size: 12pt;
 	color: gray;
-	line-height: 250;
+	line-height: 250%;
 }
 
 .imgbox {
@@ -306,6 +319,18 @@
 .imgsrc {
 	width: 100px;
 	height: 100px;
+}
+
+.picbox {
+	width: 100px;
+	height: 100px;
+	margin-left: 10px;
+	border: 1px solid gray;
+	overflow: hidden;
+}
+.pic {
+	width: 100px;
+	height: auto;
 }
 
 .mt0 {

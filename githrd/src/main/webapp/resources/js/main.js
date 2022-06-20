@@ -61,4 +61,8 @@ $(document).ready(function(){
 		$('#frm').attr('action', '/www/survey/surveyInfo.blp');
 		$('#frm').submit();
 	});
+	
+	$('#fbtn').click(function(){
+		$(location).attr('href', '/www/board/boardList.blp');
+	});
 });

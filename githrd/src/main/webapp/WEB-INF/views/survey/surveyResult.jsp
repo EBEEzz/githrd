@@ -22,14 +22,15 @@
 </style>
 </head>
 <body>
-<!-- 
+<!--  
 	현재 설문에 응답한 사람수를 조회하세요.
 	득표율도 조회하세요.
 	
-	참고)
-		득표율
-			=> 해당 보기 선택 사람 수 * 100. / 설문에 참여한 총 사람 수
- -->
+	
+	참고 ]
+		득표율 
+			==> 해당 보기 선택 사람수 * 100. / 설문에 참여한 총 사람수
+-->
 	<form method="POST" action="#" id="frm" name="frm">
 		<input type="hidden" name="id" value="${SID}">
 		<input type="hidden" name="sino" value="${param.sino}">
@@ -46,9 +47,13 @@
 		<div class="w3-col w3-margin-top w3-padding w3-card-4">
 			<h3 class="w3-left-align quest">${st.count}. ${quest.body}</h3>
 			<div class="w3-col w3-margin-bottom" style="padding-left: 50px;">
-	<!-- 설문 문항의 보기 만들기 -->
+	<!-- 설문문항의 보기 만들기 -->
 	<c:forEach var="answer" items="${quest.bogi}" varStatus="bst">
-				<h4 class="w3-col w3-left-align mb0"><label> ${bst.count}) ${answer.body} <span class="w3-text-indigo posRtvBt2"><small>- ${answer.per}%</small></span></label></h4>
+				<h4 class="w3-col w3-left-align mb0">
+					<label > 
+						${bst.count}) ${answer.body} <span class="w3-text-indigo posRtvBt2"><small>- ${answer.per}%</small></span>
+					</label>
+				</h4>
 				<div class="w3-col pdh2780">
 					<div class="w3-col w3-border w3-border-grey">
 						<div class="w3-col w3-blue" style="width: ${answer.per}%; height: 15px;"></div>
@@ -58,6 +63,7 @@
 			</div>
 		</div>
 </c:forEach>
+		
 
 		<div class="w3-col w3-margin-top w3-margin-bottom w3-card-4">
 			<div class="w3-half w3-green w3-button" id="hbtn">home</div>
