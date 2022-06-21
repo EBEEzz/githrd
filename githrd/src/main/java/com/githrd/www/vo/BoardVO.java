@@ -2,6 +2,9 @@ package com.githrd.www.vo;
 
 import java.util.*;
 import java.util.Date;
+
+import org.springframework.web.multipart.*;
+
 import java.sql.*;
 import java.text.*;
 
@@ -10,7 +13,29 @@ public class BoardVO {
 	private String id, title, body, sdate, avatar;
 	private Date wdate;
 	private List<FileVO> list;
+	private MultipartFile[] file;
+	/*
+	 	JSP 프로젝트에서는 cos.jar라는 라이브러리를 사용해서 파일업로드 기능을 구현했었지만
+	 	이번 스프링 프로젝트에서는
+	 	commons-fileupload.jar
+	 	라는 라이브러리를 사용해서 업로드 기능을 구현한다.
+	 	
+	 	위의 file 변수는
+	 	업로드된 파일을 기억하는 변수이다.
+	 	이때 만들어져야할 타입은 MultipartFile이라는 클래스 타입으로 변수가 만들어져야한다.
+	 	
+	 	jsp에서는 cos.jar를 이용해서 업로드를 하기 때문에
+	 	input 태그의 name 속성값을 모두 다르게 해줘야만 했었다.
+	 	<= 배열처리가 안되기 때문에
+	 	commons-fileupload.jar는 배열처리가 되기 때문에 같은 키값으로 파일을 업로드 할 수 있다.
+	 */
 	
+	public MultipartFile[] getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile[] file) {
+		this.file = file;
+	}
 	public List<FileVO> getList() {
 		return list;
 	}

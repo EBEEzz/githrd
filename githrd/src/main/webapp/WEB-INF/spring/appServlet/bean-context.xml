@@ -19,5 +19,6 @@
 	
 	<!-- 서비스 클래스 빈처리 -->
 	<bean id="sSrvc" class="com.githrd.www.service.SurveyService" />
+	<bean id="bSrvc" class="com.githrd.www.service.BoardService" />
 	
 </beans>

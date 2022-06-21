@@ -35,6 +35,7 @@
 	<form method="POST" action="/www/board/boardDetail.blp" id="frm" name="frm">
 		<input type="hidden" name="nowPage" id="nowPage" value="${PAGE.nowPage}">
 		<input type="hidden" name="bno" id="bno">
+		<input type="hidden" name="vw" id="vw">
 	</form>
 	
 	<div class="w3-content mxw700">

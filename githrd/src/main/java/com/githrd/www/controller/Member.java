@@ -79,6 +79,7 @@ public class Member {
 		int cnt = mDao.getLogin(mVO);
 		if(cnt == 1) {
 			session.setAttribute("SID", mVO.getId());	//로그인 처리
+			membLog.info(mVO.getId() + " 님이 로그인 했습니다.");
 			session.setAttribute("MSG_CHECK", "OK");
 			int count = gDao.getMyCount(mVO.getId());
 			session.setAttribute("CNT", count);
@@ -119,6 +120,7 @@ public class Member {
 		int cnt = mDao.getLogin(mVO);
 		if(cnt == 1) {
 			session.setAttribute("SID", mVO.getId());
+			membLog.info(mVO.getId() + " 님이 로그인 했습니다.");
 			rv.setUrl("/www/main.blp");
 		} else {
 			rv.setUrl("/www/member/login.blp");

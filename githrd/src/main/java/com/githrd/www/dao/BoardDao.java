@@ -32,4 +32,14 @@ public class BoardDao {
 	public BoardVO getDetail(int bno) {
 		return sqlSession.selectOne("bSQL.boardDetail", bno);
 	}
+	
+	//게시글 입력 전담 처리함수
+	public int addBoard(BoardVO bVO) {
+		return sqlSession.insert("bSQL.insertBoard", bVO);
+	}
+	
+	//첨부파일 정보 입력 전담 처리함수
+	public int addFile(FileVO fVO) {
+		return sqlSession.insert("bSQL.insertFile", fVO);
+	}
 }

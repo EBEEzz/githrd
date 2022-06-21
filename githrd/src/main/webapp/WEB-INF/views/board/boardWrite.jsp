@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>BlackPink 게시판 글쓰기</title>
-<link rel="stylesheet" type="text/css" href="/whistle/resources/css/w3.css">
-<link rel="stylesheet" type="text/css" href="/whistle/resources/css/user.css">
-<script type="text/javascript" src="/whistle/resources/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/whistle/resources/js/whistle/board.js"></script>
+<link rel="stylesheet" type="text/css" href="/www/css/w3.css">
+<link rel="stylesheet" type="text/css" href="/www/css/user.css">
+<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/www/js/board/board.js"></script>
 <style type="text/css">
 	label {
 		font-size: 14pt;
@@ -25,7 +25,7 @@
 <body>
 	<div class="w3-content mxw700">
 		<h1 class="w3-blue w3-padding w3-center w3-card-4">게시글 작성</h1>
-		<form method="POST" action="/whistle/board/boardWriteProc.blp" encType="multipart/form-data"
+		<form method="POST" action="/www/board/boardWriteProc.blp" encType="multipart/form-data"
 				id="frm" name="frm" class="w3-col w3-card-4 frmpadding">
 			<input type="hidden" name="nowPage" id="nowPage" value="${param.nowPage}">
 			<div class="w3-col w3-margin-top w3-margin-bottom">

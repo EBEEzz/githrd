@@ -78,3 +78,22 @@ WHERE
     isshow = 'Y'
     AND fbno = 100002
 ;
+
+
+(SELECT NVL(MAX(bno) + 1, 100001) FROM board)
+
+INSERT INTO
+    board(bno, bmno, title, body)
+VALUES(
+    #{bno},
+    (SELECT mno FROM member WHERE id = #{id}),
+    #{title}, #{body}
+);
+
+
+(SELECT NVL(MAX(fno) + 1, 10000001) FROM fileinfo)
+INSERT INTO
+    fileinfo(fno, fbno, oriname, savename, dir, len)
+VALUES(
+    #{fno}, #{bno}, #{oriname}, #{savename}, #{dir}, #{len}
+);
