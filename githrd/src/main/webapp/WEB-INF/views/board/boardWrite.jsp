@@ -28,6 +28,7 @@
 		<form method="POST" action="/www/board/boardWriteProc.blp" encType="multipart/form-data"
 				id="frm" name="frm" class="w3-col w3-card-4 frmpadding">
 			<input type="hidden" name="nowPage" id="nowPage" value="${param.nowPage}">
+			<input type="hidden" name="id" value="${SID}">
 			<div class="w3-col w3-margin-top w3-margin-bottom">
 				<label for="title" class="w3-col s2">Title</label>
 				<input type="text" id="title" name="title" class="w3-col m10 w3-input w3-border">
@@ -35,7 +36,7 @@
 			<div class="w3-col w3-margin-bottom">
 				<label class="w3-col s2">File</label>
 				<div class="w3-col m10" id="filebox">
-					<input type="file" class="w3-input w3-border w3-margin-bottom upfile">
+					<input type="file" name="file" class="w3-input w3-border w3-margin-bottom upfile">
 				</div>
 			</div>
 			<div class="w3-col w3-margin-bottom" id="previewbox" style="display: none;">

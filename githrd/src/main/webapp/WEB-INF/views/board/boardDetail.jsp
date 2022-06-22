@@ -58,7 +58,12 @@
 		<c:forEach var="data" items="${LIST}">
 			<c:if test="${not empty data.savename}">
 					<div class="inblock picbox">
+				<c:if test="${data.dir eq '/www/upload/'}">
+						<img class="pic" src="${data.dir}${data.savename}"> 
+				</c:if>
+				<c:if test="${data.dir ne '/www/upload/'}">
 						<img class="pic" src="/www${data.dir}/${data.savename}"> 
+				</c:if>
 					</div>
 			</c:if>
 		</c:forEach>

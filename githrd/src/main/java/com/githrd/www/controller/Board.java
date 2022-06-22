@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
 import com.githrd.www.dao.*;
+import com.githrd.www.service.*;
 import com.githrd.www.util.*;
 import com.githrd.www.vo.*;
 
@@ -22,6 +23,9 @@ import com.githrd.www.vo.*;
  * 				2022.06.17	-	담당자 : 안은비
  * 								클래스제작
  * 								1) 게시글 리스트보기 요청 처리함수 제작
+ * 
+ * 				2022.06.22	- 	담당자 : 안은비
+ * 								게시글 등록 요청 처리함수 추가
  *
  */
 
@@ -30,6 +34,8 @@ import com.githrd.www.vo.*;
 public class Board {
 	@Autowired
 	BoardDao bDao;
+	@Autowired
+	BoardService bSrvc;
 	
 	// 게시글 리스트 페이지 요청 처리함수
 	@RequestMapping("/boardList.blp")
@@ -74,4 +80,28 @@ public class Board {
 		mv.setViewName("board/boardWrite");
 		return mv;
 	}
+
+	// 게시글 등록 요청 처리함수
+	@RequestMapping("/boardWriteProc.blp")
+	public ModelAndView boardWriteProc(ModelAndView mv, BoardVO bVO, String nowPage) {
+		String view = "/www/board/boardList.blp";
+		System.out.println("************ " + bVO);
+		try {
+			bSrvc.addBoardData(bVO);
+			nowPage = "1";
+		} catch(Exception e) {
+			// 게시글 등록에 실패한 경우
+			// 결과적으로 롤백된 경우....
+//			view = "/www/board/boardWrite.blp?nowPage=" + nowPage;
+			view = "/www/board/boardWrite.blp";
+			e.printStackTrace();
+		}
+
+		mv.addObject("NOWPAGE", nowPage);
+		mv.addObject("VIEW", view);
+
+		mv.setViewName("board/redirect");
+		return mv;
+	}
+
 }
