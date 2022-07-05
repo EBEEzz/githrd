@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$('#selList, #eList').css('display', 'none');
+	$('#selList, #eList, #infoBox').css('display', 'none');
 
 	$('#sel').change(function(){
 		var txt = $(this).val();
@@ -12,15 +12,15 @@ $(document).ready(function(){
 				sel: txt
 			},
 			success: function(arr){
-				$('#selList').html('<option disabled selected># 분류선택 #</option>');
+				$('#selList, #eList').css('display', 'none').html('<option class="w3-center" disabled selected># 선 택 #</option>');
 				if(txt == 'dept'){
 					for(var i = 0 ; i < arr.length ; i++ ){
-						var str = '<option value=' + arr[i].dno + '>' + arr[i].dname + '</option>';
+						var str = '<option class="w3-center" value=' + arr[i].dno + '>' + arr[i].dname + '</option>';
 						$('#selList').append(str);
 					}
 				} else {
 					for(var i = 0 ; i < arr.length ; i++ ){
-						var str = '<option value=' + arr[i].job + '>' + arr[i].job + '</option>';
+						var str = '<option class="w3-center" value=' + arr[i].job + '>' + arr[i].job + '</option>';
 						$('#selList').append(str);
 					}
 				}
@@ -57,10 +57,10 @@ $(document).ready(function(){
 			dataType: 'json',
 			data: sendData,
 			success: function(arr){
-				$('#eList').html('<option disabled selected># 조회분류선택 #</option>');
+				$('#eList').html('<option class="w3-center" disabled selected># 사원 선택 #</option>');
 
 				for(var i = 0; i < arr.length ; i++ ){
-					$('#eList').append('<option value=' + arr[i].eno + '>' + arr[i].name + '</option>');
+					$('#eList').append('<option class="w3-center" value=' + arr[i].eno + '>' + arr[i].name + '</option>');
 				}
 
 				$('#eList').css('display', 'block');
