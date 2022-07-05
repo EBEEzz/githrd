@@ -52,8 +52,11 @@
 				</div>
 			</div>
 		</div>
-		<div class="w3-col w3-center w3-margin-bottom">
+		<div class="w3-col w3-center w3-margin-top w3-margin-bottom" id="photoBox">
 			<!-- 가수 사진 출력 -->
+			<div class="inblock imgBox230 w3-border  w3-card-4">
+				<img class="infoAvtBox" src="/www/img/avatar/noimage.jpg">
+			</div>
 		</div>
 	</div>
 </body>

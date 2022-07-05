@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="singer">
+	<!-- 솔로 또는 그룹 조회 질의명령 -->
+	<select id="getSinger" resultType="songVO" parameterType="songVO">
+		SELECT
+			num, name, scode
+		FROM
+		    singertype, singer
+		WHERE
+		    no = s_type
+		    AND a_time = #{a_time}
+		    AND s_gen = #{s_gen}
+		    AND scode = #{scode}
+	</select>
+
+	<!-- 그룹 멤버리스트 조회 질의명령 -->
+	<select id="singerInfo" resultType="songVO" parameterType="int" >
+		SELECT
+		   num, name, scode
+		FROM
+		    singer
+		WHERE
+		    gno = #{num}
+	</select>
+
+	<!-- 멤버 사진 조회 질의명령 -->
+	<select id="getPhoto" resultType="string" parameterType="int">
+		SELECT
+		    sname
+		FROM
+		    photo
+		WHERE
+		    s_num = #{num}
+		    AND show = 'C'
+	</select>
+</mapper>

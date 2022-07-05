@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="aSQL">
+	<insert id="addData" parameterType="aVO">
+		INSERT INTO
+			ardudata(ano, ddata)
+		VALUES(
+			(SELECT NVL(MAX(ano) + 1, 1001) FROM ardudata),
+			#{ddata}
+		)
+	</insert>
+
+	<select id="topFive" resultType="aVO">
+		SELECT
+			ano, ddata, wdate
+		FROM
+			(
+				SELECT
+					ano, ddata, wdate
+				FROM
+					ardudata
+				ORDER BY
+					wdate DESC
+			)
+		WHERE
+			rownum BETWEEN 1 and 5
+	</select>
+</mapper>

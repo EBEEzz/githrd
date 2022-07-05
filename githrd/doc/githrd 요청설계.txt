@@ -333,6 +333,27 @@
 처리함수	:	singer()
 뷰			:	/WEB-INF/views/singer/singer.jsp
 --------------------------------------------------------------------------------
+# 가수 리스트 요청
+요청내용	:	/www/singer/singerList.blp
+파라미터	:	s_time, s_gen, scode
+컨트롤러	:	com.githrd.www.controller.Singer
+처리함수	:	singerList()
+뷰			:	json : [{name, num, scode}, {name, num, scode}, ...]
+--------------------------------------------------------------------------------
+# 그룹 멤버 리스트 요청
+요청내용	:	/www/singer/memberList.blp
+파라미터	:	num
+컨트롤러	:	com.githrd.www.controller.Singer
+처리함수	:	memberList()
+뷰			:	json : [{name, num, scode}, {name, num, scode}, ...]
+--------------------------------------------------------------------------------
+# 가수 포토 저장이름 요청
+요청내용	:	/www/singer/getPhoto.blp
+파라미터	:	num
+컨트롤러	:	com.githrd.www.controller.Singer
+처리함수	:	getPhoto()
+뷰			:	json : {"sname": "??????"}
+--------------------------------------------------------------------------------
 
 
 
