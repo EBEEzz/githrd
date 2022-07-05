@@ -1,9 +1,12 @@
 package com.githrd.www.service;
 
-import javax.servlet.http.HttpSession;
+import java.lang.reflect.*;
 
-import org.aspectj.lang.JoinPoint;
+import javax.servlet.http.*;
+
+import org.aspectj.lang.*;
 import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -42,6 +45,11 @@ public class LoginLogService {
 
 	@After("recordLogin()")
 	public boolean rec(JoinPoint join) {
+		MethodSignature methodSignature = (MethodSignature) join.getSignature();
+        Method method = methodSignature.getMethod();
+        String funcName = method.getName();
+
+
 		MemberVO mVO = (MemberVO) join.getArgs()[1];
 
 		if(mVO.getCnt() == 1) {
@@ -60,6 +68,10 @@ public class LoginLogService {
 
 	@After("execution(* com.githrd.www.controller.Member.logout(..))")
 	public void logoutRecord(JoinPoint join) {
+		MethodSignature methodSignature = (MethodSignature) join.getSignature();
+    Method method = methodSignature.getMethod();
+    String funcName = method.getName();
+//  System.out.println(method.getName());
 		MemberVO mVO = (MemberVO) join.getArgs()[2];
 		String id = mVO.getId();
 		String result = mVO.getResult();
@@ -77,8 +89,16 @@ public class LoginLogService {
 		bVO.setMno(bDao.getMno(id));
 	}
 
-	@After("execution(* com.githrd.www.controller.Board.boardWriteProc(..))")
+	@After("execution(* com.githrd.www.controller.**.**WriteProc(..))")
 	public void boardLogWrite(JoinPoint join) {
+		MethodSignature methodSignature = (MethodSignature) join.getSignature();
+    Method method = methodSignature.getMethod();
+    String funcName = method.getName();
+    /*
+      	funcName 에따라서 어떤 게시판인지 판별이되므로 
+        분기처리하면 된다.
+     */
+
 		BoardVO bVO = (BoardVO) join.getArgs()[1];
 		String result = bVO.getResult();
 		String id = bVO.getId();
@@ -89,6 +109,8 @@ public class LoginLogService {
 	}
 
 	// 글삭제 로그남기기...
-
-
+	@After("execution(* com.githrd.www.controller.Board.delBoard(..))")
+	public void boardDel(JoinPoint join) {
+		join.getClass().getName();
+	}
 }

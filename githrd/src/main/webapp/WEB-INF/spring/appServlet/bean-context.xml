@@ -11,11 +11,13 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:annotation-config />
 	
+	<!-- DAO 빈처리 -->
 	<bean id="mDao" class="com.githrd.www.dao.MemberDao" />
 	<bean id="bDao" class="com.githrd.www.dao.BoardDao" />
 	<bean id="gDao" class="com.githrd.www.dao.GBoardDao" />
 	<bean id="rDao" class="com.githrd.www.dao.ReBoardDao" />
 	<bean id="sDao" class="com.githrd.www.dao.SurveyDao" />
+	<bean id="eDao" class="com.githrd.www.dao.EmpDao" />
 	
 	<!-- 서비스 클래스 빈처리 -->
 	<bean id="sSrvc" class="com.githrd.www.service.SurveyService" />

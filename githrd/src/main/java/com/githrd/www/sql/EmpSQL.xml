@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="eSQL">
+	<select id="selList" resultType="eVO" parameterType="eVO">
+		SELECT
+			<if test="sel eq 'dept'">
+				deptno dno, dname
+			</if>
+			<if test="sel eq 'job'">
+				DISTINCT job
+			</if>
+		FROM
+			<if test="sel eq 'job'">
+				emp
+			</if>
+			<if test="sel eq 'dept'">
+				dept
+			</if>
+	</select>
+
+	<select id="partList" resultType="eVO" parameterType="eVO">
+		SELECT
+		    empno eno, ename name
+		FROM
+		    emp
+		WHERE
+			<if test="job neq null">
+			    job = #{job}
+			</if>
+			<if test="job eq null">
+		    	deptno = #{dno}
+			</if>
+	</select>
+</mapper>
