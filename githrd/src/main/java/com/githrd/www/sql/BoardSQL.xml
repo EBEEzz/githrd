@@ -71,6 +71,16 @@
 		    AND fbno = #{bno}
 	</select>
 	
+	<!-- 회원아이디로 회원번호 조회 질의명령 -->
+	<select id="selMno" resultType="int" parameterType="string">
+		SELECT 
+			mno 
+		FROM 
+			member 
+		WHERE 
+			id = #{id}
+	</select>
+	
 	<insert id="insertBoard" parameterType="bVO">
 		<selectKey keyProperty="bno" resultType="int" order="BEFORE">
 			SELECT
@@ -82,8 +92,8 @@
 		INSERT INTO
 		    board(bno, bmno, title, body)
 		VALUES(
-		    #{bno},
-		    (SELECT mno FROM member WHERE id = #{id}),
+		    #{bno}, #{mno},
+<!-- 		    (SELECT mno FROM member WHERE id = #{id}), -->
 		    #{title}, #{body}
 		)
 	</insert>

@@ -5,8 +5,10 @@ import javax.servlet.http.HttpSession;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
+import com.githrd.www.dao.*;
 import com.githrd.www.vo.*;
 
 @Service // service 클래스를 빈등록해주는 어노테이션
@@ -16,6 +18,9 @@ public class LoginLogService {
 	private static Logger boardLog = LoggerFactory.getLogger("boardLog");
 	private static Logger gBoardLog = LoggerFactory.getLogger("gBoardLog");
 	private static Logger reBoardLog = LoggerFactory.getLogger("reBoardLog");
+	
+	@Autowired
+	BoardDao bDao;
 
 	/*
 		@Pointcut : 처리기가 실행될 시점을 지정(요청처리함수)
@@ -64,6 +69,14 @@ public class LoginLogService {
 		}
 	}
 
+	@Before("execution(* com.githrd.www.controller.Board.boardWriteProc(..))")
+	public void setBoardMnoData(JoinPoint join) {
+		BoardVO bVO = (BoardVO) join.getArgs()[1];
+		String id = bVO.getId();
+
+		bVO.setMno(bDao.getMno(id));
+	}
+
 	@After("execution(* com.githrd.www.controller.Board.boardWriteProc(..))")
 	public void boardLogWrite(JoinPoint join) {
 		BoardVO bVO = (BoardVO) join.getArgs()[1];
@@ -74,4 +87,8 @@ public class LoginLogService {
 			boardLog.info(id + " 회원님이 [ " + bno + " ] 번글을 작성했습니다.");
 		}
 	}
+
+	// 글삭제 로그남기기...
+
+
 }

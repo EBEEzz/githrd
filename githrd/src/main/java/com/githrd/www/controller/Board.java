@@ -85,7 +85,7 @@ public class Board {
 	@RequestMapping("/boardWriteProc.blp")
 	public ModelAndView boardWriteProc(ModelAndView mv, BoardVO bVO, String nowPage) {
 		String view = "/www/board/boardList.blp";
-		System.out.println("************ " + bVO);
+		System.out.println("************ " + bVO.getMno());
 		try {
 			bSrvc.addBoardData(bVO);
 			// 정상적으로 등록작업에 성공한 경우

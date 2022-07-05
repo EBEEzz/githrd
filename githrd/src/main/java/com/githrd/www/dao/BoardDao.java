@@ -33,6 +33,11 @@ public class BoardDao {
 		return sqlSession.selectOne("bSQL.boardDetail", bno);
 	}
 	
+	// 회원번호조회 전담 처리함수
+		public int getMno(String id) {
+			return sqlSession.selectOne("bSQL.selMno", id);
+		}
+
 	//게시글 입력 전담 처리함수
 	public int addBoard(BoardVO bVO) {
 		return sqlSession.insert("bSQL.insertBoard", bVO);
