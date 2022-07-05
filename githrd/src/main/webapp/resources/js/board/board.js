@@ -5,7 +5,10 @@ $(document).ready(function(){
 	});
 	
 	$('#obtn').click(function(){
-		$(location).attr('href', '/www/member/logout.blp');
+//		$(location).attr('href', '/www/member/logout.blp');
+		$('#vw').val("/www/board/boardList.blp");
+		$('#frm').attr('action', '/www/member/logout.blp');
+		$('#frm').submit();
 	});
 	
 	$('#lbtn').click(function(){
@@ -96,4 +99,64 @@ $(document).ready(function(){
 		$('#frm').submit();
 	});
 	
+	// 수정버튼 이벤트 처리
+	$('#edit').click(function(){
+		$('#frm').attr('action', '/www/board/boardEdit.blp');
+		$('#frm').submit();
+	});
+	
+	$('.evtPic').click(function(){
+		// 파일번호 꺼내오고
+		var sno = $(this).attr('id');
+		var el = $(this);
+
+		if(confirm("삭제하시겠습니까?")){
+			$.ajax({
+				url: '/www/board/fileDel.blp',
+				type: 'post',
+				dataType: 'json',
+				data: {
+					fno: sno
+				},
+				success: function(data){
+					if(data.result == 'OK'){
+						$(el).remove();
+					}
+				},
+				error: function(){
+					alert('### 통신에러 ###');
+				}
+			});
+		}
+	});
+
+	$('#editProc').click(function(){
+		$('.upfile').last().prop('disabled', true);
+
+		// 수정 여부검사
+		var otitle = $('#otitle').val();
+		var obody = $('#obody').val();
+
+		var title = $('#title').val();
+		var body = $('#body').val();
+
+		if(otitle == title){
+			$('#title').prop('disabled', true);
+		}
+		if(obody == body){
+			$('#body').prop('disabled', true);
+		}
+
+		if(otitle == title && obody == body && $('#filebox > input').length == 1){
+			return;
+		}
+
+		$('#frm').submit();
+	});
+
+	// 글삭제 버튼 이벤트 처리
+	$('#dbtn').click(function(){
+		$('#frm').attr('action', '/www/board/boardDel.blp');
+		$('#frm').submit();
+	});
 });
