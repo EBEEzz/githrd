@@ -248,9 +248,9 @@ public class Member {
 	}
 	
 	@RequestMapping("/myInfo.blp")
-	public ModelAndView myInfo(ModelAndView mv, String id) {
+	public ModelAndView myInfo(ModelAndView mv, MemberVO mVO) {
 		//데이터 가져오고
-		MemberVO mVO = mDao.getIdInfo(id);
+		mVO = mDao.getIdInfo(mVO.getId());
 		//뷰에 데이터 심고
 		mv.addObject("DATA", mVO);
 		//뷰 정하고
