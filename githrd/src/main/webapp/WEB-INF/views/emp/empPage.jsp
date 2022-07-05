@@ -14,6 +14,12 @@
 		width: 200px;
 		opacity: 0.8;
 	}
+
+	#closeWin {
+		position: relative;
+		bottom: 19px;
+		left: 32px;
+	}
 </style>
 </head>
 <body>
@@ -36,13 +42,25 @@
 				<option disabled selected># 분류선택 #</option>
 			</select>
 			<select class="w3-quarter w3-select w3-border" name="eList" id="eList">
-				<option disabled selected># 조회분류선택 #</option>
+				<option disabled selected># 분류선택 #</option>
+			</select>
+		</div>
+
+		<div class="w3-col w3-margin-top">
+			<select class="w3-quarter w3-select w3-border w3-center" id="selInitial">
+				<option disabled selected># 이니셜선택 #</option>
+	<c:forEach var="data" items="${ILIST}">
+				<option value="${data.name}">${data.name}</option>
+	</c:forEach>
+			</select>
+			<select class="w3-threequarter w3-select w3-border w3-center" id="selName">
+				<option class="w3-center" disabled selected># 사원 선택 #</option>
 			</select>
 		</div>
 
 		<!-- 사원 정보 표시창 -->
 		<div class="w3-col w3-margin-top w3-padding w3-card-4" id="infoBox">
-			<h3 class="w3-container w3-left-align"><span class="ename edata"></span> 사원 정보</h3>
+			<h3 class="w3-col w3-container w3-left-align"><span class="w3-text-blue ename edata"></span> 사원 정보<span id="closeWin" class="w3-button w3-right w3-hover-white">&times;</span></h3>
 			<div class="w3-col w3-border w3-border-grey">
 				<div class="w3-col w3-margin-top">
 					<h4 class="w3-col w3-right-align w3-text-dark-grey contentForm">사원번호 : </h4>

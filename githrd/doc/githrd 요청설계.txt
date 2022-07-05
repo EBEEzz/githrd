@@ -307,6 +307,20 @@
 처리함수	:	partList()
 뷰			:	json : ArrayList<EmpVO> ==> Array<JSON>
 --------------------------------------------------------------------------------
+# 사원페이지 사원정보조회 비동기 요청
+요청내용	:	/www/emp/empInfo.blp
+파라미터	:	eno
+컨트롤러	:	com.githrd.www.controller.Emp
+처리함수	:	empInfo()
+뷰			:	json : EmpVO ==> JSON
+--------------------------------------------------------------------------------
+# 사원페이지 이니셜 이름리스트 조회 비동기 요청
+요청내용	:	/www/emp/enameList.blp
+파라미터	:	eno
+컨트롤러	:	com.githrd.www.controller.Emp
+처리함수	:	enameList()
+뷰			:	json : ArrayList<EmpVO> ==> Array<JSON>
+--------------------------------------------------------------------------------
 
 
 

@@ -33,4 +33,37 @@
 		    	deptno = #{dno}
 			</if>
 	</select>
+
+	<!-- 사원번호로 사원 정보 조회 질의명령 -->
+	<select id="getInfo" resultType="eVO" parameterType="eVO">
+		SELECT
+		    e.empno eno, e.ename name, e.job, e.hiredate, e.sal, 
+		    NVL(TO_CHAR(e.comm), '커미션 없음') comm, dname, loc, grade, 
+		    NVL(s.ename, '상사없음') sangsa
+		FROM
+		    emp e, emp s, dept d, salgrade
+		WHERE
+		    e.deptno = d.deptno
+		    AND e.mgr = s.empno(+)
+		    AND e.sal BETWEEN losal AND hisal
+		    AND e.empno = #{eno}
+	</select>
+
+	<select id="getInitial" resultType="eVO">
+		SELECT
+		    DISTINCT SUBSTR(ename, 1, 1) name
+		FROM
+		    emp
+		ORDER BY
+		    name
+	</select>
+
+	<select id="nameList" resultType="eVO" parameterType="eVO">
+		SELECT
+		    empno eno, ename name
+		FROM
+		    emp
+		WHERE
+		    ename LIKE #{name} || '%'
+	</select>
 </mapper>

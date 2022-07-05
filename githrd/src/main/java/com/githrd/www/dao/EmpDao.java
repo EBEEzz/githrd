@@ -20,4 +20,19 @@ public class EmpDao {
 	public List<EmpVO> partList(EmpVO eVO){
 		return sqlSession.selectList("eSQL.partList", eVO);
 	}
+
+	// 사원 정보조회 전담 처리함수
+	public EmpVO getInfo(EmpVO eVO) {
+		return sqlSession.selectOne("eSQL.getInfo", eVO);
+	}
+
+	// 이니셜 리스트 조회 전담 처리함수
+	public List<EmpVO> getIniList(){
+		return sqlSession.selectList("eSQL.getInitial");
+	}
+
+	// 이니셜로 이름 리스트조회 전담 처리함수
+	public List<EmpVO> nameList(EmpVO eVO){
+		return sqlSession.selectList("eSQL.nameList", eVO);
+	}
 }
