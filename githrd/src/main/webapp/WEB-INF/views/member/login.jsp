@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>MVC Study</title>
+<link rel="stylesheet" type="text/css" href="/www/css/font-awesome-4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/www/css/w3.css">
 <link rel="stylesheet" type="text/css" href="/www/css/base.css">
 <script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
@@ -30,7 +31,7 @@
 			<input type="hidden" name="nowPage" value="${param.nowPage}">
 </c:if>
 			<div class="w3-col w3-margin-top">
-				<label for="id" class="w3-col s2 w3-right-align w3-text-grey">I D : &nbsp;</label>
+				<label for="id" class="w3-col s2 w3-right-align w3-text-grey"><i class="fa fa-user"></i> I D : &nbsp;</label>
 				<div class="w3-col m9 pdl10">
 					<input type="text" name="id" id="id" placeholder="아이디를 입력하세요!"
 							class="w3-col w3-input w3-border w3-round-medium">
