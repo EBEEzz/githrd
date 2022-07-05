@@ -10,7 +10,7 @@ import java.text.*;
 
 public class BoardVO {
 	private int mno, bno, upno, rno, ano, click, cnt, step;
-	private String id, title, body, sdate, avatar;
+	private String id, title, body, sdate, avatar, result;
 	private Date wdate;
 	private List<FileVO> list;
 	private MultipartFile[] file;
@@ -123,6 +123,12 @@ public class BoardVO {
 	}
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
 	}
 	public Date getWdate() {
 		return wdate;

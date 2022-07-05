@@ -44,7 +44,7 @@ public class Member {
 	*/
 	
 	@RequestMapping(path="/loginProc.blp", method=RequestMethod.POST, params={"id", "pw"})
-	public ModelAndView loginProc(MemberVO mVO, HttpSession session, ModelAndView mv, RedirectView rv) {
+	public ModelAndView loginProc(ModelAndView mv, MemberVO mVO, HttpSession session, RedirectView rv) {
 //		System.out.println("### 일반 사용자");
 //		System.out.println("********** id : " + id);
 //		System.out.println("********** pw : " + pw);
@@ -52,10 +52,11 @@ public class Member {
 //		System.out.println("********** mVO.pw : " + mVO.getPw());
 		
 		int cnt = mDao.getLogin(mVO);
+		mVO.setCnt(cnt);
 		if(cnt == 1) {
 			session.setAttribute("SID", mVO.getId()); // 로그인 처리
 			// 로그처리
-			membLog.info(mVO.getId() + " 님이 로그인 했습니다."); // 5. 로그메세지 출력....
+//			membLog.info(mVO.getId() + " 님이 로그인 했습니다."); // 5. 로그메세지 출력....
 			
 			session.setAttribute("MSG_CHECK", "OK");
 			int count = gDao.getMyCount(mVO.getId());
@@ -75,7 +76,7 @@ public class Member {
 	}
 	//댓글게시판에서 로그인 처리를 요청하는 경우 처리함수
 	@RequestMapping(path="/loginProc.blp", method=RequestMethod.POST, params={"id", "pw", "vw", "nowPage"})
-	public ModelAndView loginProc(MemberVO mVO, HttpSession session, ModelAndView mv, RedirectView rv, String vw, String nowPage) {
+	public ModelAndView loginProc(ModelAndView mv, MemberVO mVO, HttpSession session, RedirectView rv, String vw, String nowPage) {
 		int cnt = mDao.getLogin(mVO);
 		if(cnt == 1) {
 			session.setAttribute("SID", mVO.getId());	//로그인 처리
@@ -146,11 +147,10 @@ public class Member {
 	*/
 	
 	@RequestMapping("/logout.blp")
-	public ModelAndView logout(ModelAndView mv, HttpSession session, String vw, String nowPage) {
-		String sid = (String) session.getAttribute("SID");
+	public ModelAndView logout(ModelAndView mv, HttpSession session, MemberVO mVO, String vw, String nowPage) {
 		session.removeAttribute("SID");
-		
-		membLog.info("### " + sid + " 님이 로그아웃 했습니다.");
+		mVO.setResult("OK");
+//		membLog.info("### " + sid + " 님이 로그아웃 했습니다.");
 		
 		if(vw == null) {
 			vw = "/www/";

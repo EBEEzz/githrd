@@ -24,7 +24,34 @@
 		<param name="File" value="${catalina.base}/src/main/resources/log/member.log" />
 		<param name="Append" value="true" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd} : %m%n" />
+			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd HH:mm:ss} : %m%n" />
+		</layout>
+	</appender>
+
+	<!-- Board Appender -->
+	<appender name="boardAppender" class="org.apache.log4j.FileAppender">
+		<param name="File" value="${catalina.base}/src/main/resources/log/board.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd HH:mm:ss} : %m%n" />
+		</layout>
+	</appender>
+
+	<!-- GBoard Appender -->
+	<appender name="gBoardAppender" class="org.apache.log4j.FileAppender">
+		<param name="File" value="${catalina.base}/src/main/resources/log/gBoard.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd HH:mm:ss} : %m%n" />
+		</layout>
+	</appender>
+
+	<!-- ReBoard Appender -->
+	<appender name="reBoardAppender" class="org.apache.log4j.FileAppender">
+		<param name="File" value="${catalina.base}/src/main/resources/log/reBoard.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd HH:mm:ss} : %m%n" />
 		</layout>
 	</appender>
 	
@@ -33,7 +60,7 @@
 		<param name="File" value="${catalina.base}/src/main/resources/log/survey.log" />
 		<param name="Append" value="true" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd} : %m%n" />
+			<param name="ConversionPattern" value="%-5p - %d{yyyy/MM/dd HH:mm:ss} : %m%n" />
 		</layout>
 	</appender>
 	
@@ -51,6 +78,18 @@
 	<logger name="memberLog">
 		<level value="info" />
 		<appender-ref ref="memberAppender" /> <!-- 3. -->
+	</logger>
+	<logger name="boardLog">
+		<level value="info" />
+		<appender-ref ref="boardAppender" /> <!-- 3. -->
+	</logger>
+	<logger name="gBoardLog">
+		<level value="info" />
+		<appender-ref ref="gBoardAppender" /> <!-- 3. -->
+	</logger>
+	<logger name="reBoardLog">
+		<level value="info" />
+		<appender-ref ref="reBoardAppender" /> <!-- 3. -->
 	</logger>
 	
 	<!-- 3rdparty Loggers -->

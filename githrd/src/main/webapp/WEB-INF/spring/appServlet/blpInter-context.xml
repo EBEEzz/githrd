@@ -33,6 +33,8 @@
 			<mapping path="/member/infoEditProc.blp" />
 			<mapping path="/member/memberList.blp" />
 			<mapping path="/member/delMember.blp" />
+			<mapping path="/board/boardWrite**.blp" />
+			<mapping path="/board/boardEdit**.blp" />
 			<beans:ref bean="loginRedirect" />
 		</interceptor>
 	</interceptors>
